@@ -4,11 +4,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style2.css">
   <title></title>
 </head>
 
 <body>
-  
+  <p><em><strong>Error Handling (try/catch)</strong></em></p>
+<span><em><strong>- Try/Catch Block:</strong></em></span><br />
+ <code>try { <br />
+// code that might throw an error <br />
+let x = y + 1; // y is undefined <br />
+} catch (error) { <br />
+console.log("Error:", error.message); // "y is not defined" <br />
+}</code> <br />
+<span><em>- Throwing Errors:</em></span> <br />
+ <code>function checkAge(age) {
+ if (age < 0) throw new Error("Age can't be negative");
+ console.log("Age is valid");
+ }</code>
+<span><em>- Finally Block:</em></span><br />
+ <code>try { <br />
+// code <br />
+} catch (error) { <br />
+// handle error <br />
+} finally { <br />
+// runs regardless of try/catch outcome <br />
+console.log("Done"); <br />
+}</code> <br />
+<span>Key points</span>: <br />
+- `try`: test code <br />
+- `catch`: handle errors <br />
+- `finally`: cleanup (optional) 🚨 <br /><br />
+
+<header>
+  <b><i>Chapter 4</i></b>
+  <p><em><strong>Functions</strong></em></p>
+  <b><i>What you'll learn</i></b>
+  <ul>
+    <li>Function Declarations and Expressions</li>
+    <li></li>
+    <li></li>
+  </ul>
+</header> <br /><br />
+<em><strong><p>Function Declarations and Expressions</p></strong></em> <br />
+<span><strong>What is a Function</strong></span> <br />
+A function is a reusable block of code that performs a specific task. Think of it like a recipe: you can follow the same recipe multiple times to make the same dish.
+<br /><br />
+- <span><em><strong>Function Declaration</strong></em></span>:  <br /><code>`function greet() <br />{ console.log("Hello!"); }`</code> <br />
+<span><em><strong>- Real-world analogy</strong></em></span>: <br /> A restaurant menu - you can order the same dish (function) multiple times.
+<br />
+<span>Example</span>: <br />
+<code>function addNumbers() { <br />
+let num1 = 5; <br />
+let num2 = 3; <br />
+console.log(num1 + num2); <br />
+} <br />
+addNumbers(); // outputs 8</code>
+<br />
+<span>Test Understanding:</span> <br />
+1. What's the purpose of a function in JavaScript? <br />
+2. How do you call (invoke) a function named `greet`? <br />
+
+<span>Hints</span>: <br />
+1. Think about code reusability. <br />
+2. You just saw an example with `addNumbers`. <br />
+<br />
+<b>Short Challenge (under 10 minutes):
+Create a function called `sayGoodbye` that logs "Goodbye, world!" to the console. Call the function.
+</b> <br /> <br />
+<span>Summary + Reflection:</span> <br />
+- Learned about function declarations. <br />
+- Created a simple function.
+<br /><br />
+What's one thing you can apply today from this? 🤔
+<br /><br />
+Session Logged: Day 1 of Week 4 - Function Declarations and Expressions 🎆✌️🎉
 </body>
 
 </html>
