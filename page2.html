@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style2.css">
+  <title>JavaScript Full Note Introduction to JavaScript</title>
+</head>
+
+<body>
+  <section>
+    <header> <b><i>Chapter 1</i></b>
+      <h1>Introduction to JavaScript</h1><br>
+     <b><i>What you'll learn</i></b>
+      <ul>
+        <li>
+Introduction To JavaScript 
+        </li>
+        <li>Basic Syntax In Js
+        </li>
+        <li>Operators and Expressions in JavaScript</li>
+      </ul>
+    </header>
+    <main>
+      <div class="btn">
+
+    <button><a href="page3.html"   >➡️</a></button>
+
+</div>
+<p><em><strong class="topic">
+What is JavaScript?
+</strong></em></p>
+
+-JavaScript is a high-level, dynamic, and interpreted programming language used primarily for web development.
+
+<br>
+- It's a key technology for creating interactive web pages and web applications.
+
+<br>
+- Not to be confused with Java – they're different languages with different uses.
+<br>
+<br>
+<span>
+Setting Up the Environment
+</span>
+<br>
+1. <strong>Node.js</strong>: A JavaScript runtime that lets you run JavaScript outside the browser. <br>
+    - Download and install from <a href="https://nodejs.org/" target="_blank">https://nodejs.org/</a>.
+
+<br>
+2. <em><strong>VS Code</strong></em>: A popular code editor for writing JavaScript.
+    - Download and install from <a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a>.
+<br><br>
+
+<span>
+Hello, World! Example
+</span>
+<br>
+<code>
+// hello.js <br />
+console.log("Hello, World!");
+</code>
+<br>
+- Save this in a file named `hello.js`.
+<br>
+- Run it in your terminal: <br><code>
+`node hello.js`
+</code>.<br>
+- Output: `Hello, World!`
+<br><br>
+<span>
+Key Takeaways
+</span><br>
+- JavaScript is versatile and used for both frontend and backend development. <br>
+- Node.js lets you run JavaScript on the server. <br>
+- `console.log()` is used to print output to the console
+    </main>
+  </section><br><br>
+<hr /><br><br>
+  <em><strong class="topic">
+Basic Syntax and Variables in JS
+  </strong></em><br>
+<span>Basic Syntax</span> <br>
+- JavaScript statements end with a semicolon (`;`).<br>
+- Code is case-sensitive.<br>
+- Use `//` for single-line comments or `/* */` for multi-line comments.
+<br><br>
+<span>Variables</span><br>
+- Declare variables using <code>
+`let`</code>, <code>`const`</code>, or <code>`var`</code>.<br>
+    - `let`: Block-scoped, mutable.<br>
+    - `const`: Block-scoped, immutable.<br>
+    - `var`: Function-scoped, mutable (older syntax).<br>
+- <b>Example</b>: <br>
+<code>let name = "John";</code><br>
+<code>const age = 30;</code><br>
+<code>var isAdmin = true;</code><br><br>
+<b>Data Types</b><br>
+- Primitive types: string,number,boolean.<br>
+- Reference types: objects, arrays, functions.<br><br>
+
+<span>Basic Operators</span><br />
+- Strings: Use `+` for concatenation.<br>
+- Numbers: Use `+`, `-`, `*`, `/`, `%` for math operations.<br>
+<code>let greeting = "Hello, " + name;<br>
+let sum = 10 + 5;</code><br />
+<span>Exercises</span><br />
+1. Declare variables for your name, age, and a message.<br>
+2. Use `console.log()` to print them.
+<br>
+ <b>Example</b>: <br>
+<code>let name = "Your Name"; <br>
+let age = 25;<br>
+let message = "Learning JavaScript!";<br>
+console.log(name, age, message);</code>
+<div class="btn">
+
+    <button><a href="page3.html"    >➡️</a></button>
+
+</div>
+
+<div id="loader"></div>
+<style>
+  
+
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #0a0a0a;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loader::after {
+  content: '';
+  width: 50px;
+  height: 50px;
+  border: 6px solid #00bfff;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>
+
+
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.style.display = "none";
+  });
+</script>
+
+</body>
+
+</html>
