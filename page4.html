@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style2.css">
+  <title>JavaScript Note on type conversion</title>
+</head>
+
+<body>
+  <div class="btn">
+
+    <button><a href="page5.html"  >➡️</a></button>
+
+</div>
+  <p><strong><em class="topic">Operators (Arithmetic, Comparison, Logical) in JavaScript</em></strong></p><br />
+<span><strong><em>Operators</em></strong></span><br />
+- <strong>Arithmetic</strong>: <code>`+`, `-`, `*`, `/`, `%`, `**`<br />
+let sum = 5 + 3; // 8</code><br />
+- <strong>Comparison</strong>: <code>`==`, `===`, `!=`, `!==`, `>`, `<`, `>=`, `<=`<br />
+let isEqual = (5 === 5); // true</code><br />
+- <strong>Logical</strong>: <code>`&&`, `||`, `!`<br />
+let isValid = (true && true); // true</code><br />
+<span>Examples</span><br />
+<code>let x = 10;<br />
+let y = 5;<br />
+
+console.log(x + y); // 15 <br />
+console.log(x > y); // true <br />
+console.log(x === 10 && y === 5); // true <br /></code>
+<span>Exercises</span><br />
+1. Try combining operators.<br />
+2. Predict outputs: <br />
+<code>console.log(10 === "10");<br />
+console.log(5 > 3 && 2 < 4);
+</code>
+<br><br />
+<p><em><strong class="topic">Type Conversions</strong></em></p>
+
+<span><em><strong>What are Type Conversions? </strong></em>🤔</span><br />
+    - Changing a value's data type (e.g., string to number)<br />
+- <span><em><strong>Types of Conversions</strong></em></span>
+    - Implicit (automatic) <br />
+    - Explicit (manual, using functions like <code>`Number()`, `String()`)</code><br>
+- <span>Common Use Cases</span><br />
+    - User input (strings) to numbers for calculations <br />
+    - Displaying numbers as strings <br />
+- <span>Examples</span><br />
+<code>let num = "123";<br />
+console.log(typeof num); // string <br />
+num = Number(num); <br />
+console.log(typeof num); // number
+<br />
+let age = 25; <br />
+console.log(String(age)); // "25"
+</code>
+<div class="btn">
+
+    <button><a href="page5.html"  >➡️</a></button>
+
+</div>
+<div id="loader"></div>
+<style>
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #0a0a0a;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loader::after {
+  content: '';
+  width: 50px;
+  height: 50px;
+  border: 6px solid #00bfff;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>
+
+
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.style.display = "none";
+  });
+</script>
+
+</body>
+
+</html>
