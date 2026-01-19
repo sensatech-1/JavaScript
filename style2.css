@@ -1,88 +1,181 @@
-*{
+/* ===== GLOBAL RESET ===== */
+* {
   margin: 0;
-  padding:  0;
-  font-family: sans-serif;
-}
-body{
-  line-height: 130%;
-  background-color: rgb(152, 201, 243);
-  font-family: 'sans-serif';
-}
-.topic{
-  font-weight: bolder;
-  font-size: 18px;
-}
-li{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-weight: 400;
-}
-header{
-  line-height: 120%;
-  padding: 3px 10px;
-  background-color: chocolate;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-span{
-  font-weight: bold;
-  color: orangered;
-}
-a[href$=".html"]{
-    text-decoration: none;
-    color: white;
-}
-a:hover{
-    text-decoration: underline;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-
-.btn{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px 0px;
+/* ===== BODY ===== */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+  color: #1f2937;
+  line-height: 1.7;
+  padding: 16px;
 }
+
+/* ===== MAIN CONTENT WRAPPER ===== */
+section {
+  max-width: 900px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== HEADER ===== */
+header {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+header b i {
+  color: #2563eb;
+  font-size: 0.95rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin: 8px 0;
+  color: #1e3a8a;
+}
+
+header ul {
+  margin-top: 10px;
+  padding-left: 18px;
+}
+
+header li {
+  margin: 6px 0;
+  color: #374151;
+}
+
+/* ===== MAIN TEXT ===== */
+main {
+  font-size: 1rem;
+}
+
+/* Topic headings like "What is JavaScript?" */
+.topic {
+  display: inline-block;
+  font-size: 1.3rem;
+  color: #0f172a;
+  margin: 18px 0 8px;
+}
+
+/* Section labels like spans */
+span {
+  display: inline-block;
+  margin-top: 18px;
+  font-weight: 600;
+  color: #1d4ed8;
+  font-size: 1.05rem;
+}
+
+/* Paragraph spacing */
+p {
+  margin: 10px 0;
+}
+
+/* ===== LISTS ===== */
+ul {
+  margin: 8px 0 16px 20px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+/* ===== CODE BLOCKS ===== */
+code {
+  display: block;
+  background: #020617;
+  color: #e5e7eb;
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 12px;
+  font-family: "Fira Code", monospace;
+  font-size: 0.9rem;
+  overflow-x: auto;
+}
+
+/* Inline code */
+p code,
+li code {
+  display: inline;
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: #e0e7ff;
+  color: #1e3a8a;
+}
+
+/* ===== HR ===== */
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, #2563eb, transparent);
+  margin: 40px 0;
+}
+
+/* ===== BUTTON ===== */
+.btn {
+  display: flex;
+  justify-content: center;
+  margin: 25px 0;
+}
+
 button {
-  background-color: #2196f3;
-  color: white;
-  padding: 12px 24px;
-  border: 3px solid red;
-  border-radius: 5px;
-  font-size: 18px;
+  background: #2563eb;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 32px;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: box-shadow 0.4s ease-in-out;
+  animation: pulse 2s infinite;
 }
 
-button:hover {
-  box-shadow: 0 0 0 6px rgba(255, 0, 0, 0.5); /* Looks like border grows */
+button a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-
-
-@keyframes pulse-border {
+/* Button animation */
+@keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.6);
   }
   70% {
-    box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 18px rgba(37, 99, 235, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
   }
 }
 
-button {
-  animation: pulse-border 1.8s infinite;
+/* ===== LINKS ===== */
+a {
+  color: #2563eb;
 }
-  i{
-   white-space: nowrap;
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 768px) {
+  body {
+    padding: 30px;
   }
-  code{
-    font-size: 80%;
-    margin-left: 3%;
-    background-color: rgba(6,100,100,0.3);
-    padding: 3px;
-    border-radius: 2px;
+
+  header h1 {
+    font-size: 2.5rem;
   }
-  
+
+  main {
+    font-size: 1.05rem;
+  }
+}

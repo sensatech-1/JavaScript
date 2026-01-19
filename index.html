@@ -1,137 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Full Note Table of Contents</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Unlocked – Table of Contents</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body><img src="images.jpeg" alt="JavaScript logo" class="sensatech"/><br>
-    <section id="intro_box"><h2>SensaTech International Presents To You</h2><h1>JavaScript <span class="intro_left_text">Unlocked</span></h1></section>
 
-<!-- Table of content-->
-<div class="btn">
-    <button><a href="page2.html">➡️</a></button>
-</div>
-    <section>
-        <span class="table_of_content">Table of content</span>
-    <h3>Introduction To JavaScript</h3>
-       <ul>
-        <li>Introduction to JavaScript</li>
-        <li>Basic syntax and variables</li>
-        <li>Operators and expressions</li>
-       </ul>
-<h3>Data Types and Operators</h3>
-<ul>
-    <li>Data Types (string,number,boolean)</li>
-    <li>Operators (Arithmetic,Comparison,Logical)</li>
-    <li>Type Conversions</li>
-</ul>
-<h3>Control Structures</h3>
-<ul>
-    <li>Conditional Statements (if/else/switch)</li>
-    <li>Loops (fol,while,do...while)</li>
-    <li>Error Handling</li>
-</ul>
-<h3>Functions</h3>
-<ul>
-    <li>Functions Declarations and Expressions</li>
-    <li>Arrow Function</li>
-    <li>Function Scope and Closures</li>
-</ul>
-<h3>Arrays and Objects</h3>
-<ul>
-    <li>Array method (push,pop,map,filter)</li>
-    <li>Object creation and Manipulation</li>
-    <li>JSON and Object Serialization</li>
-</ul>
-<h3>DOM Manipulation</h3>
-<ul>
-    <li>Introduction to the DOM</li>
-    <li>Selecting and Manipulating Element</li>
-    <li>Event Handling (click,submit etc)</li>
-</ul>
-<h3>Events And Async Programming</h3>
-<ul>
-    <li>Event listeners And Handlers</li>
-    <li>Async Programming (callbacks,promises)</li>
-    <li>Async and Await syntax</li>
-</ul>
-<h3>JavaScript in the Browser</h3>
-<ul>
-    <li>Browsers APIs (localStorage,fetch)</li>
-    <li>Working With Forms and Inputs</li>
-    <li>Basic Webpage Manipulation</li>
-</ul>
-<h3>Node.js and Server_side JavaScript</h3>
-<ul>
-    <li>Introduction to Node.js</li>
-<li>creating a Simple Server</li>
-<li>Working with Modules and Packages</li>
-</ul>
-<h3>Advanced Topics</h3>
-<ul>
-    <li>Closures and Higher-Order Functions</li>
-    <li>Prototype and Inheritance</li>
-    <li>ES6+ Features (classes,modules)</li>
-</ul>
-<h3>Project Development</h3>
-<ul>
-    <li>Plan and Build a JavaScript Project</li>
-    <li>Implementing Features and Functionality</li>
-    <li>Test and debug the Project</li>
-</ul>
-<h3>Final Project and Review</h3>
-<ul>
-    <li>Complete and Refine the Project</li>
-    <li>Review key Concepts and Topics</li>
-    <li>Prepare for Further Learning and Certification</li>
-</ul>
+<body>
+
+<img src="images.jpeg" alt="JavaScript logo" class="sensatech">
+
+<section id="intro_box">
+  <h2>SensaTech International Presents</h2>
+  <h1>JavaScript <span class="intro_left_text">Unlocked</span></h1>
+</section>
+
+<section class="toc-wrapper">
+  <h2 class="toc-title">📘 Table of Contents</h2>
+
+  <div class="toc-card">
+    <h3>Introduction to JavaScript</h3>
+    <ul>
+      <li>What is JavaScript?</li>
+      <li>Basic syntax & variables</li>
+      <li>Operators & expressions</li>
+    </ul>
+  </div>
+
+  <div class="toc-card">
+    <h3>Data Types & Operators</h3>
+    <ul>
+      <li>String, Number, Boolean</li>
+      <li>Arithmetic & Logical Operators</li>
+      <li>Type Conversion</li>
+    </ul>
+  </div>
+
+  <div class="toc-card">
+    <h3>Control Structures</h3>
+    <ul>
+      <li>if / else / switch</li>
+      <li>Loops (for, while)</li>
+      <li>Error Handling</li>
+    </ul>
+  </div>
+
+  <div class="toc-card">
+    <h3>Functions</h3>
+    <ul>
+      <li>Function Declarations</li>
+      <li>Arrow Functions</li>
+      <li>Scope & Closures</li>
+    </ul>
+  </div>
+
+  <div class="toc-card">
+    <h3>Arrays & Objects</h3>
+    <ul>
+      <li>Array Methods</li>
+      <li>Objects & JSON</li>
+      <li>Data Manipulation</li>
+    </ul>
+  </div>
+
+  <div class="toc-card">
+    <h3>DOM Manipulation</h3>
+    <ul>
+      <li>DOM Basics</li>
+      <li>Events</li>
+      <li>Element Selection</li>
+    </ul>
+  </div>
+
 </section>
 
 <div class="btn">
-
-    <button><a href="page2.html" >➡️</a></button>
-
+  <button><a href="page2.html">Next ➡️</a></button>
 </div>
+
 <div id="loader"></div>
-<style>
-  
-
-#loader {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #0a0a0a;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#loader::after {
-  content: '';
-  width: 50px;
-  height: 50px;
-  border: 6px solid #00bfff;
-  border-top: 6px solid transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-</style>
-
 
 <script>
-  window.addEventListener("load", function () {
-    const loader = document.getElementById("loader");
-    loader.style.display = "none";
-  });
+window.addEventListener("load", () => {
+  document.getElementById("loader").style.display = "none";
+});
 </script>
 
 </body>
