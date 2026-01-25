@@ -43,7 +43,62 @@ Create an arrow function `double` that takes a number and returns its double. Te
   What's one thing you can apply today from this? 🤔
 <br /><br />
 Session Logged: Week 4 Day 2 - Arrow Functions
+<br /><br /> <hr />
+<span><em><strong>Function Scope and Closures</strong></em></span> <br />
 
+2-minute Recap (from Day 2)
+Yesterday, we covered arrow functions: shorter syntax for writing functions.
+ <br />
+<b>New Core Concept</b>: <span><em><strong>Function Scope</strong></em></span> <br />
+Scope determines where variables are accessible. Think of it like compartments in a building - variables in one compartment (function) aren't automatically in another.
+<br />
+- Variables declared inside a function are local to that function. <br />
+- Real-world analogy: A secret in a room is only known to people in that room.
+<br /><br />
+<span>Example</span>:
+<code>function outer() { <br />
+let x = 10; <br />
+function inner() {<br />
+console.log(x); // accesses x from outer <br />
+} <br />
+inner(); <br />
+} <br />
+outer(); // outputs 10</code>
+<br /><br />
+<span>Closures</span>: <br />
+A closure is when a function "remembers" its outer scope's variables. <br />
+<button><a href="https://otieu.com/4/10513248" target="_blank">Click me</a></button>
+<br />
+- Example:
+function createGreeting(name) {
+  return () => console.log(`Hello, ${name}!`);
+}
+const greetJohn = createGreeting("John");
+greetJohn(); // outputs "Hello, John!"
+
+*Test Understanding:*
+1. What's the output of this? `function test() { let x = 5; console.log(x); } test();`
+2. Does `greetJohn` above have access to `name`? Why?
+
+*Hints:*
+1. `x` is local to `test`.
+2. Closure!
+
+*Short Challenge (under 10 minutes):*
+Create a function `counter` that returns a function. Each time you call the returned function, it increments and logs a count.
+const count = counter();
+count(); // 1
+count(); // 2
+
+*Summary + Reflection:*
+- Learned about function scope and closures.
+- Closures "remember" outer variables.
+
+What's one thing you can apply today from this? 🤔
+
+*Session Logged: Week 4 Day 3 - Function Scope and Closures*
+
+SensaTech 👨‍💻💢😜😜 --✌️
 </body>
 
 </html>
