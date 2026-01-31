@@ -5,7 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="monetag" content="e6239dd352bdcd701706f04ae01fd620">
 <meta name="google-site-verification" content="JTD21Y75CV4HgXN-Kuqhyr9bN5npzFjQu-_8L9RnT8U" />
-<title>JavaScript Unlocked – Table of Contents</title>
+<title>JavaScript Unlocked — Learn JavaScript Free | Tutorials, Projects & Tools</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="JavaScript Unlocked is a free platform to learn JavaScript with tutorials, coding challenges, real projects, games, and beginner-to-advanced lessons. Master JS the smart way.">
+
+<meta name="keywords" content="JavaScript, Learn JavaScript Free, JavaScript Tutorials, JS Projects, Frontend Development, Web Development, HTML CSS JavaScript, Free Coding Lessons">
+
+<meta name="author" content="JavaScript Unlocked">
+<meta name="robots" content="index, follow">
+<meta name="language" content="English">
+<meta name="revisit-after" content="2 days">
+
+<link rel="canonical" href="https://javascriptunlocked.name.ng/">
+
+<!-- Open Graph (Facebook, WhatsApp, Discord) -->
+<meta property="og:title" content="JavaScript Unlocked — Learn JavaScript Free">
+<meta property="og:description" content="Learn JavaScript for free with tutorials, real projects, coding challenges, and beginner-friendly lessons.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://javascriptunlocked.name.ng/">
+<meta property="og:image" content="https://javascriptunlocked.name.ng/preview.png">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JavaScript Unlocked — Learn JavaScript Free">
+<meta name="twitter:description" content="Free JavaScript tutorials, coding challenges, and hands-on projects for beginners and developers.">
+<meta name="twitter:image" content="https://javascriptunlocked.name.ng/preview.png">
+
+<!-- Theme / Mobile -->
+<meta name="theme-color" content="#0f172a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Browser Compatibility -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -90,5 +126,23 @@ window.addEventListener("load", () => {
 </script>
 <script src="https://quge5.com/88/tag.min.js" data-zone="206027" async data-cfasync="false"></script>
 <script src="https://phantomtrack-cdn.vercel.app/phantom.v1.0.0.js?trackid=track_3flhk75vszx3vdz6mssmjx"></script>
+<script>
+(function () {
+  // Target all buttons that contain links
+  document.querySelectorAll("button a").forEach(link => {
+    const realHref = link.getAttribute("href");
+
+    link.addEventListener("click", function (e) {
+      e.preventDefault();       // Stop ad hijack
+      e.stopPropagation();      // Block injected listeners
+
+      // Small delay defeats aggressive ad scripts
+      setTimeout(() => {
+        window.location.href = realHref;
+      }, 50);
+    }, true); // capture phase = stronger than ads
+  });
+})();
+</script>
 </body>
 </html>
