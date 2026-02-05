@@ -11,6 +11,11 @@
 <body>
 <span><em><strong>Arrow Functions</strong></em></span>
 <br />
+  <div class="btn">
+
+    <button><a href="page8.html"   >➡️</a></button>
+
+</div>
 2-minute Recap (from Day 1) <br />
 Yesterday, we covered function declarations: <code>`function name() { ... }`</code>. They help reuse code.
 <br /><br />
@@ -34,7 +39,7 @@ greet(); // outputs "Hi!"</code>
 <br />
 <span>Short Challenge (under 10 minutes):</span> <br />
 Create an arrow function `double` that takes a number and returns its double. Test it with `double(5)`.
- <br />
+ <br /><br />
 <b>Summary + Reflection</b>: <br />
 - Learned about arrow functions. <br />
 - Shorter syntax for simple functions.
@@ -69,36 +74,46 @@ outer(); // outputs 10</code>
 A closure is when a function "remembers" its outer scope's variables. <br />
 <button><a href="https://otieu.com/4/10513248" target="_blank">Click me</a></button>
 <br />
-- Example:
-function createGreeting(name) {
-  return () => console.log(`Hello, ${name}!`);
-}
-const greetJohn = createGreeting("John");
-greetJohn(); // outputs "Hello, John!"
+<span>- Example:</span><br />
+<code>function createGreeting(name) { <br />
+return () => console.log(`Hello, ${name}!`);<br />
+} <br />
+const greetJohn = createGreeting("John"); <br />
+greetJohn(); // outputs "Hello, John!"</code>
+<br />
+<span><b><i>Test Understanding:</i></b></span><br />
+<b>1. What's the output of this?</b> <br />
+<code>`function test() { <br />
+let x = 5;<br />
+console.log(x); <br />
+} test();`</code><br />
+<b>2. Does `greetJohn` above have access to `name`? Why?</b>
+<br />
+<i>Hints</i>: <br />
+1. `x` is local to `test`. <br />
+2. Closure! <br />
 
-*Test Understanding:*
-1. What's the output of this? `function test() { let x = 5; console.log(x); } test();`
-2. Does `greetJohn` above have access to `name`? Why?
+<b>Short Challenge (under 10 minutes):</b> <br />
+<i>Create a function `counter` that returns a function. Each time you call the returned function, it increments and logs a count.
+<code>const count = counter();<br />
+count(); // 1 <br />
+count(); // 2</code>
+</i><br />
+<span>Summary + Reflection:</span><br />
+- Learned about function scope and closures.<br />
+- Closures "remember" outer variables.<br />
 
-*Hints:*
-1. `x` is local to `test`.
-2. Closure!
+<b>What's one thing you can apply today from this? 🤔
+<br />
+Session Logged: Week 4 Day 3 - Function Scope and Closures
+<br />
+SensaTech 👨‍💻💢😜😜 --✌️</b>
+      <div class="btn">
 
-*Short Challenge (under 10 minutes):*
-Create a function `counter` that returns a function. Each time you call the returned function, it increments and logs a count.
-const count = counter();
-count(); // 1
-count(); // 2
+    <button><a href="page8.html"   >➡️</a></button>
 
-*Summary + Reflection:*
-- Learned about function scope and closures.
-- Closures "remember" outer variables.
-
-What's one thing you can apply today from this? 🤔
-
-*Session Logged: Week 4 Day 3 - Function Scope and Closures*
-
-SensaTech 👨‍💻💢😜😜 --✌️
+</div>
+<script>(function(s){s.dataset.zone='10574548',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 </body>
 
 </html>

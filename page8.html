@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 5: Arrays & Objects</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<section>
+<header>
+  <b><i>Chapter 5</i></b>
+  <h1>Arrays and Objects</h1>
+  <b><i>What you'll learn</i></b>
+  <ul>
+    <li>Array Methods (push, pop, map, filter)</li>
+    <li>Object Creation and Manipulation</li>
+    <li>JSON and Object Serialization</li>
+  </ul>
+</header>
+
+<main>
+<p><strong class="topic">Arrays in JavaScript</strong></p>
+- Arrays store multiple values in a single variable.<br>
+- Ordered and zero-indexed.
+
+<code>
+let fruits = ["Apple", "Banana", "Orange"];
+</code>
+
+<span>Common Array Methods</span>
+- <code>push()</code>, <code>pop()</code>, <code>map()</code>, <code>filter()</code>
+
+<code>
+fruits.push("Mango");
+let numbers = [1,2,3];
+let doubled = numbers.map(n => n * 2);
+</code>
+
+<hr>
+
+<p><strong class="topic">Objects in JavaScript</strong></p>
+- Objects store data as key–value pairs.
+
+<code>
+let user = {<br />
+  name: "Alex",
+  age: 20,
+  isStudent: true
+};
+</code>
+
+<span>Accessing Properties</span>
+<code>
+user.name;
+user["age"];
+</code>
+
+<hr>
+
+<p><strong class="topic">JSON (JavaScript Object Notation)</strong></p>
+- Format for storing and exchanging data  
+- Looks like JS objects
+
+<code>
+{
+  "name": "Alex",
+  "age": 21
+}
+</code>
+
+<span>Convert JSON</span>
+<code>
+JSON.stringify(user);
+JSON.parse(jsonText);
+</code>
+
+<span>Exercises</span>
+1. Create an array of 5 numbers  
+2. Create an object describing yourself  
+3. Convert your object to JSON and back
+
+</main>
+
+<div class="btn">
+  <button><a href="page9.html">➡️</a></button>
+</div>
+</section>
+
+<div id="loader"></div>
+<script>
+window.addEventListener("load", function () {
+  document.getElementById("loader").style.display = "none";
+});
+(function () {
+  document.querySelectorAll("button a").forEach(link => {
+    const realHref = link.getAttribute("href");
+    link.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      setTimeout(()=> window.location.href = realHref, 50);
+    }, true);
+  });
+})();
+</script>
+<script>(function(s){s.dataset.zone='10574554',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+</body>
+</html>
