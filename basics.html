@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 01 | JS Unlocked</title>
+    <style>
+        :root { --accent: #00d4ff; --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --danger: #ff4757; --success: #238636; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        /* Progress Indicator */
+        .top-nav { width: 100%; padding: 20px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(13, 17, 23, 0.9); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border); }
+        .progress-container { flex-grow: 1; height: 6px; background: #21262d; margin: 0 20px; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--accent); width: 10%; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 10px var(--accent); }
+
+        .container { width: 100%; max-width: 750px; padding: 40px 20px; box-sizing: border-box; }
+        
+        /* Section Transitions */
+        .section { display: none; background: var(--card); padding: 40px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative; }
+        .active { display: block; animation: fadeIn 0.5s ease; }
+
+        h1 { color: #fff; font-size: 2rem; margin-top: 0; }
+        .content-area { font-size: 1.1rem; line-height: 1.8; color: #8b949e; }
+        strong { color: #fff; }
+        
+        /* Buttons */
+        .btn-next { background: var(--accent); color: #000; padding: 14px 35px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer; float: right; margin-top: 30px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-next:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2); }
+
+        /* Quiz Layout */
+        .quiz-box { text-align: center; }
+        #timer-display { font-size: 4rem; font-family: monospace; color: var(--danger); margin: 20px 0; font-weight: bold; }
+        .option { display: block; width: 100%; padding: 18px; margin: 12px 0; background: #0d1117; border: 1px solid var(--border); color: #fff; border-radius: 12px; cursor: pointer; font-size: 1rem; text-align: left; transition: 0.2s; }
+        .option:hover { border-color: var(--accent); background: #1c2128; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="top-nav">
+    <div id="lives-ui" style="color: var(--danger); font-weight: bold;">LIVES: ❤️❤️❤️</div>
+    <div class="progress-container"><div id="p-bar" class="progress-fill"></div></div>
+    <div id="step-ui" style="font-family: monospace;">STEP 01/10</div>
+</div>
+
+<div class="container">
+    <div id="basics1" class="section active">
+        <div class="content-area">
+            <h1></h1>
+            <p><h1>01. The Memory Bank</h1>
+<p>In programming, a <strong>Variable</strong> is a named space in your computer's memory. Imagine a warehouse full of boxes; a variable is the <strong>label</strong> on the box that tells you what's inside.</p>
+<ul>
+    <li><code>const</code>: Use this for values that are "Locked." If you try to change it later, the system will error out. (e.g., your Date of Birth).</li>
+    <li><code>let</code>: Use this for values that "Flow." These can be updated as the program runs. (e.g., a game score).</li>
+</ul>
+<div style="background:#000; padding:15px; border-radius:8px; border:1px solid #333;">
+    <code style="color:#7fb4ca;">const</code> <span style="color:#fff;">userName = "Neon_Coder";</span><br>
+    <code style="color:#7fb4ca;">let</code> <span style="color:#fff;">userLives = 3;</span>
+</div>
+</p>
+        </div>
+        <button class="btn-next" onclick="toStep(2)">Next Module</button>
+    </div>
+
+    <div id="basics2" class="section">
+        <div class="content-area">
+            <h1></h1>
+            <p><h1>02. Data Blueprints</h1>
+<p>JavaScript needs to know what <em>kind</em> of data it is handling to process it correctly. We call these <strong>Data Types</strong>.</p>
+<ol>
+    <li><strong>Strings:</strong> Textual data wrapped in quotes: <code>"Direct Entry"</code>.</li>
+    <li><strong>Numbers:</strong> Plain digits (no quotes): <code>42</code> or <code>19.99</code>.</li>
+    <li><strong>Booleans:</strong> Simple logic gates. Only two states exist: <code>true</code> or <code>false</code>.</li>
+</ol>
+<p><em>Pro Tip: Putting numbers in quotes makes them Strings! <code>"10"</code> is text; <code>10</code> is math-ready.</em></p>
+</p>
+        </div>
+        <button class="btn-next" onclick="toStep(3)">Next Module</button>
+    </div>
+
+    <div id="basics3" class="section">
+        <div class="content-area">
+          
+            <p><h1>03. The Logic of Math</h1>
+<p>Your CPU is a world-class calculator. JavaScript uses standard <strong>Operators</strong> to manipulate numerical data.</p>
+<ul>
+    <li><code>+</code> (Addition) | <code>-</code> (Subtraction)</li>
+    <li><code>*</code> (Multiplication) | <code>/</code> (Division)</li>
+    <li><code>%</code> (Modulo): This gives you the <strong>Remainder</strong> of a division. Very useful for finding even or odd numbers!</li>
+</ul>
+<pre><code>let calculation = (10 * 5) + 2; // Result: 52</code></pre>
+</p>
+        </div>
+        <button class="btn-next" onclick="toStep(4)">Next Module</button>
+    </div>
+
+    <div id="basics4" class="section">
+        <div class="content-area">
+          
+            <p><h1>04. Preparation for Uplink</h1>
+<p>You have reached the end of the initial briefing. To "Unlock" the rest of Phase 01, you must pass the <strong>System Integrity Check</strong>.</p>
+<p style="color:var(--danger); font-weight:bold;">⚠️ WARNING: The next screen is TIMED. Failure to answer correctly before the clock hits zero will result in the loss of a SYSTEM LIFE.</p>
+<p>Review your knowledge of <code>const</code> and <code>let</code> before proceeding.</p>
+</p>
+        </div>
+        <button class="btn-next" onclick="toStep(5)">Next Module</button>
+    </div>
+
+    <div id="basics5" class="section">
+        <div class="quiz-box">
+            <h1>🚨 SYSTEM CHECK</h1>
+            <p>Verify your knowledge to unlock the next phase.</p>
+            <div id="timer-display">10</div>
+            <div id="quiz-options">
+                </div>
+        </div>
+    </div>
+
+    <div id="basics6" class="section">
+        <div class="content-area">
+        <p><h1>06. Comparison Operators</h1>
+<p>In JavaScript, we don't just store data; we compare it. To check if two values are exactly the same, we use the <strong>Strict Equality</strong> operator: <code>===</code>.</p>
+<ul>
+    <li><code>===</code> : Checks if value AND type are equal.</li>
+    <li><code>!==</code> : Checks if two values are NOT equal.</li>
+    <li><code>></code> / <code>
+            << /code> : Greater than or Less than.</li>
+</ul>
+<div style="background:#000; padding:15px; border-radius:8px; border:1px solid #333; font-family: monospace;">
+    <span style="color:#ce9178;">"10"</span> === <span style="color:#b5cea8;">10</span>; <span style="color:#6a9955;">// false (String vs Number)</span><br>
+    <span style="color:#b5cea8;">10</span> === <span style="color:#b5cea8;">10</span>; <span style="color:#6a9955;">// true</span>
+</div>
+<button class="btn-next" onclick="toStep(8)">Next Module</button></p></div>
+        <button class="btn-next" onclick="toStep(7)">Continue</button>
+    </div>
+
+    <div id="basics7" class="section">
+        <div class="content-area"><h1><p><h1>07. The If Statement</h1>
+<p>The <code>if</code> statement is the "Brain" of your script. It tells the computer: <strong>"If this condition is true, run this specific block of code."</strong></p>
+<div style="background:#000; padding:15px; border-radius:8px; border:1px solid #333; font-family: monospace;">
+    <code style="color:#c586c0;">if</code> (userLives > <span style="color:#b5cea8;">0</span>) {<br>
+    &nbsp;&nbsp;<span style="color:#6a9955;">// This code runs only if lives > 0</span><br>
+    &nbsp;&nbsp;console.log(<span style="color:#ce9178;">"System Active"</span>);<br>
+    }
+</div>
+<p>If the condition is false, the computer simply skips that block entirely.</p>
+<button class="btn-next" onclick="toStep(9)">Next Module</button>
+</p></div>
+        <button class="btn-next" onclick="toStep(8)">Continue</button>
+    </div>
+
+    <div id="basics8" class="section">
+        <div class="content-area">
+            <p><h1>08. Code Comments</h1>
+<p>Writing code is only half the job; the other half is making sure humans can read it. We use <strong>Comments</strong> to leave notes that the computer ignores.</p>
+<ul>
+    <li><code>//</code> : Single-line comment.</li>
+    <li><code>/* ... */</code> : Multi-line block comment.</li>
+</ul>
+<p><em>Pro Tip: Use comments to explain <strong>WHY</strong> you wrote the code, not just WHAT the code does.</em></p>
+<button class="btn-next" onclick="toStep(10)">Final Review</button>
+</p></div>
+        <button class="btn-next" onclick="toStep(9)">Continue</button>
+    </div>
+
+    <div id="basics9" class="section">
+        <div class="content-area"><h1>09. [Topic Title]</h1><p>[Content]</p></div>
+        <button class="btn-next" onclick="toStep(10)">Final Module</button>
+    </div>
+
+    <div id="basics10" class="section">
+        <div class="content-area">
+            <h1>10. Phase Complete</h1>
+            <p>You have successfully unlocked the foundations of JavaScript.</p>
+        </div>
+        <button class="btn-next" onclick="location.href='scheme.html'">Return to Roadmap</button>
+    </div>
+</div>
+<script>
+// --- GLOBAL STATE ---
+let clock;
+let lives = parseInt(localStorage.getItem('js_lives')) || 3;
+let currentStep = 1;
+
+// --- NAVIGATION ENGINE ---
+function toStep(n) {
+    // 1. Clear any active timers to prevent memory leaks or double-clocks
+    clearInterval(clock);
+
+    // 2. Manage Section Visibility
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+
+    const targetSection = document.getElementById('basics' + n);
+    if (targetSection) {
+        targetSection.classList.add('active');
+        currentStep = n;
+    }
+
+    // 3. Update UI Elements
+    updateUI(n);
+
+    // 4. Check if this is the Quiz Section (Step 5)
+    if (n === 5) {
+        renderAndStartQuiz();
+    }
+
+    // 5. Scroll to top for a fresh page feel
+    window.scrollTo(0, 0);
+}
+
+function updateUI(n) {
+    const progressBar = document.getElementById('p-bar');
+    const stepLabel = document.getElementById('step-ui');
+    const livesLabel = document.getElementById('lives-ui');
+
+    if (progressBar) progressBar.style.width = (n * 10) + "%";
+    if (stepLabel) stepLabel.innerText = "STEP " + (n < 10 ? '0' + n : n) + "/10";
+    if (livesLabel) livesLabel.innerText = "LIVES: " + "❤️".repeat(lives);
+}
+
+// --- QUIZ ENGINE ---
+function renderAndStartQuiz() {
+    const quizOptions = document.getElementById('quiz-options');
+    
+    // High-Quality Content Injection
+    quizOptions.innerHTML = `
+        <p style="font-size: 1.1rem; color: #8b949e; margin-bottom: 25px;">
+            <span style="color:var(--accent);">MISSION:</span> Identify the keyword used for a variable that <strong>cannot</strong> be reassigned after its initial definition.
+        </p>
+        <button class="option" onclick="processAnswer(false)">let</button>
+        <button class="option" onclick="processAnswer(true)">const</button>
+        <button class="option" onclick="processAnswer(false)">var</button>
+    `;
+
+    let timeLimit = 10;
+    document.getElementById('timer-display').innerText = timeLimit;
+
+    clock = setInterval(() => {
+        timeLimit--;
+        document.getElementById('timer-display').innerText = timeLimit;
+        
+        if (timeLimit <= 0) {
+            clearInterval(clock);
+            triggerFailure("TIME EXPIRED");
+        }
+    }, 1000);
+}
+
+function processAnswer(isCorrect) {
+    clearInterval(clock);
+    if (isCorrect) {
+        // Visual feedback could be added here
+        toStep(6); 
+    } else {
+        triggerFailure("INCORRECT DATA ENTRY");
+    }
+}
+
+// --- FAILURE LOGIC ---
+function triggerFailure(reason) {
+    lives--;
+    localStorage.setItem('js_lives', lives);
+    
+    if (lives <= 0) {
+        alert("CRITICAL SYSTEM FAILURE: " + reason + ". Access Revoked.");
+        localStorage.setItem('js_lives', 3); // Reset lives for the next full attempt
+        window.location.href = 'index.html';
+    } else {
+        alert("ACCESS DENIED: " + reason + ". One life consumed. Rebooting Phase 01...");
+        window.location.href = 'scheme.html';
+    }
+}
+
+// --- INITIALIZATION ---
+// Ensure the UI matches the stored lives on page load
+window.onload = () => {
+    updateUI(1);
+};
+
+
+
+</script>
+</body>
+</html>
