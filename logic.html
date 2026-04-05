@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 02 | JS Unlocked</title>
+    <style>
+        :root { --accent: #00d4ff; --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --danger: #ff4757; --success: #238636; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        .top-nav { width: 100%; padding: 20px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(13, 17, 23, 0.9); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border); }
+        .progress-container { flex-grow: 1; height: 6px; background: #21262d; margin: 0 20px; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--accent); width: 10%; transition: 0.4s; box-shadow: 0 0 10px var(--accent); }
+
+        .container { width: 100%; max-width: 750px; padding: 40px 20px; box-sizing: border-box; }
+        .section { display: none; background: var(--card); padding: 40px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .active { display: block; animation: fadeIn 0.5s ease; }
+
+        h1 { color: #fff; font-size: 1.8rem; margin-top: 0; border-left: 4px solid var(--accent); padding-left: 15px; }
+        code { background: #000; color: #dcdcaa; padding: 4px 8px; border-radius: 4px; font-family: monospace; }
+        
+        .btn-next { background: var(--accent); color: #000; padding: 14px 35px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer; float: right; margin-top: 30px; transition: 0.3s; text-transform: uppercase; }
+        .btn-next:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2); }
+
+        #timer-display { font-size: 4rem; font-family: monospace; color: var(--danger); text-align: center; margin: 20px 0; font-weight: bold; }
+        .option { display: block; width: 100%; padding: 18px; margin: 12px 0; background: #0d1117; border: 1px solid var(--border); color: #fff; border-radius: 12px; cursor: pointer; text-align: left; }
+        .option:hover { border-color: var(--accent); background: #1c2128; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="top-nav">
+    <div id="lives-ui" style="color: var(--danger); font-weight: bold;">LIVES: ❤️❤️❤️</div>
+    <div class="progress-container"><div id="p-bar" class="progress-fill"></div></div>
+    <div id="step-ui" style="font-family: monospace;">STEP 01/10</div>
+</div>
+
+<div class="container">
+
+    <div id="logic1" class="section active">
+        <h1>01. The Conditional Gates</h1>
+        <p>Control flow is the order in which individual statements are executed. The most common tool is the <code>if</code> statement.</p>
+        <p>It acts as a gatekeeper: <strong>"If this condition is true, let the code pass."</strong></p>
+        <pre><code>if (age >= 18) {
+  console.log("Access Granted");
+}</code></pre>
+        <button class="btn-next" onclick="toStep(2)">Next Module</button>
+    </div>
+
+    <div id="logic2" class="section">
+        <h1>02. The "Else" Backup</h1>
+        <p>What if the condition is <strong>false</strong>? We use <code>else</code> to provide a fallback plan.</p>
+        <pre><code>if (isLoggedIn) {
+  showDashboard();
+} else {
+  showLoginPage();
+}</code></pre>
+        <button class="btn-next" onclick="toStep(3)">Next Module</button>
+    </div>
+
+    <div id="logic3" class="section">
+        <h1>03. Multi-Path Logic</h1>
+        <p>When you have more than two options, use <code>else if</code>. This creates a chain of checks.</p>
+        <p>The computer checks them in order and stops as soon as it finds a <strong>true</strong> one.</p>
+        <button class="btn-next" onclick="toStep(4)">Next Module</button>
+    </div>
+
+    <div id="logic4" class="section">
+        <h1>04. Logical Operators</h1>
+        <p>Sometimes one condition isn't enough. We combine them using:</p>
+        <ul>
+            <li><code>&&</code> (AND): Both sides must be true.</li>
+            <li><code>||</code> (OR): At least one side must be true.</li>
+            <li><code>!</code> (NOT): Reverses the logic (true becomes false).</li>
+        </ul>
+        <button class="btn-next" onclick="toStep(5)">Enter Quiz Zone 🚨</button>
+    </div>
+
+    <div id="logic5" class="section">
+        <h1 style="text-align:center;">🚨 LOGIC CHECK</h1>
+        <div id="timer-display">10</div>
+        <div id="quiz-options"></div>
+    </div>
+
+    <div id="logic6" class="section">
+        <h1>06. Truthy and Falsy</h1>
+        <p>In JS, every value has an inherent boolean "vibe."</p>
+        <p><strong>Falsy</strong> values: <code>0</code>, <code>""</code> (empty string), <code>null</code>, <code>undefined</code>, and <code>NaN</code>.</p>
+        <p>Everything else is generally <strong>Truthy</strong>.</p>
+        <button class="btn-next" onclick="toStep(7)">Next Module</button>
+    </div>
+
+    <div id="logic7" class="section">
+        <h1>07. The Ternary Operator</h1>
+        <p>This is a "Short-hand" version of if/else. It's great for simple assignments.</p>
+        <pre><code>let status = (score > 50) ? "Pass" : "Fail";</code></pre>
+        <button class="btn-next" onclick="toStep(8)">Next Module</button>
+    </div>
+
+    <div id="logic8" class="section">
+        <h1>08. Switch Statements</h1>
+        <p>When comparing one variable against many specific values (like a menu), a <code>switch</code> is cleaner than many <code>else if</code> blocks.</p>
+        <button class="btn-next" onclick="toStep(9)">Next Module</button>
+    </div>
+
+    <div id="logic9" class="section">
+        <h1>09. Comparison Deep-Dive</h1>
+        <p>Remember <code>===</code> vs <code>==</code>? Always use <strong>Triple Equals</strong>. It prevents "Type Coercion" where JS tries to guess what you meant.</p>
+        <button class="btn-next" onclick="toStep(10)">Finalize Phase 02</button>
+    </div>
+
+    <div id="logic10" class="section">
+        <h1 style="border:none; text-align:center;">🔓 PHASE 02 UNLOCKED</h1>
+        <p>You now control the flow of data. Your scripts are no longer just lists—they are <strong>programs</strong> that make decisions.</p>
+        <button class="btn-next" onclick="location.href='scheme.html'" style="float:none; width:100%;">Return to Roadmap</button>
+    </div>
+
+</div>
+
+<script>
+    let clock;
+    let lives = parseInt(localStorage.getItem('js_lives')) || 3;
+
+    function toStep(n) {
+        clearInterval(clock);
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById('logic' + n).classList.add('active');
+        
+        document.getElementById('p-bar').style.width = (n * 10) + "%";
+        document.getElementById('step-ui').innerText = "STEP " + (n < 10 ? '0' + n : n) + "/10";
+        document.getElementById('lives-ui').innerText = "LIVES: " + "❤️".repeat(lives);
+
+        if (n === 5) startQuiz();
+        window.scrollTo(0,0);
+    }
+
+    function startQuiz() {
+        const options = document.getElementById('quiz-options');
+        options.innerHTML = `
+            <p style="margin-bottom:20px;">Which operator returns true only if <strong>BOTH</strong> conditions are true?</p>
+            <button class="option" onclick="answer(false)">|| (OR)</button>
+            <button class="option" onclick="answer(true)">&& (AND)</button>
+            <button class="option" onclick="answer(false)">! (NOT)</button>
+        `;
+
+        let time = 10;
+        document.getElementById('timer-display').innerText = time;
+        clock = setInterval(() => {
+            time--;
+            document.getElementById('timer-display').innerText = time;
+            if (time <= 0) { clearInterval(clock); handleFail(); }
+        }, 1000);
+    }
+
+    function answer(isCorrect) {
+        clearInterval(clock);
+        if (isCorrect) { toStep(6); } 
+        else { handleFail(); }
+    }
+
+    function handleFail() {
+        lives--;
+        localStorage.setItem('js_lives', lives);
+        if (lives <= 0) {
+            alert("SYSTEM LOCKOUT: No lives remaining.");
+            localStorage.setItem('js_lives', 3);
+            window.location.href = 'index.html';
+        } else {
+            alert("LOGIC ERROR: Life Consumed.");
+            window.location.href = 'scheme.html';
+        }
+    }
+
+    window.onload = () => { document.getElementById('lives-ui').innerText = "LIVES: " + "❤️".repeat(lives); };
+</script>
+
+</body>
+</html>
