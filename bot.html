@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Free Online JavaScript Editor – Run & Test JS Instantly</title>
+
+<meta name="description" content="Test and run JavaScript code instantly in your browser. Free online JS editor with console output, examples, and real-world practice challenges.">
+<meta name="keywords" content="javascript editor online, run js online, test javascript, js sandbox, code playground">
+<meta name="author" content="SensaTech">
+
+<!-- Open Graph -->
+<meta property="og:title" content="JavaScript Editor Online">
+<meta property="og:description" content="Write, test, and debug JavaScript instantly. No setup required.">
+
+<!-- Schema -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "SoftwareApplication",
+ "name": "JavaScript Code Editor",
+ "applicationCategory": "DeveloperApplication",
+ "operatingSystem": "Web",
+ "description": "Run JavaScript online in a sandbox environment with real-time console output."
+}
+</script>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: monospace;
+  background: #0f0f0f;
+  color: #e0e0e0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #f0c040;
+}
+
+.card {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+h2{ 
+    color: dodgerblue;
+}
+.header {
+  background: #252525;
+  padding: 8px 14px;
+  font-size: 12px;
+  color: #888;
+  border-bottom: 1px solid #333;
+}
+
+textarea {
+  width: 100%;
+  height: 200px;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: none;
+  padding: 12px;
+  resize: vertical;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+}
+
+button, select {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: monospace;
+}
+
+#runBtn { background: #f0c040; color: #000; }
+#clearBtn { background: #2a2a2a; color: #aaa; }
+#copyBtn { background: #444; color: #fff; }
+
+#output {
+  padding: 12px;
+  min-height: 120px;
+  max-height: 260px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+.line-log { color: #7ec8a0; }
+.line-warn { color: #f0c040; }
+.line-error { color: #f07070; }
+.line-result { color: #7ab8f5; }
+.line-info { color: #aaa; font-style: italic; }
+
+.content {
+  padding: 15px;
+  line-height: 1.6;
+}
+
+iframe { display: none; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>JavaScript Code Editor</h1>
+
+<div class="card">
+  <div class="header">script.js</div>
+  <textarea id="code">// Write JavaScript here
+console.log("Start coding...");
+2 + 2</textarea>
+
+  <div class="controls">
+    <button id="runBtn" onclick="runCode()">Run</button>
+    <button id="clearBtn" onclick="clearOutput()">Clear</button>
+    <button id="copyBtn" onclick="copyCode()">Copy</button>
+
+    <select onchange="loadExample(this.value)">
+      <option value="">Load Practical Example</option>
+      <option value="api">Fetch API Data</option>
+      <option value="debounce">Debounce Function</option>
+      <option value="array">Array Processing</option>
+      <option value="timer">Countdown Timer</option>
+      <option value="validator">Email Validator</option>
+    </select>
+  </div>
+</div>
+
+<div class="card">
+  <div class="header">Output <span id="status"></span></div>
+  <div id="output"><span class="line-info">// Output will appear here...</span></div>
+</div>
+
+<div class="card">
+  <div class="content">
+    <h2>About This Tool</h2>
+    <p>
+      This editor allows you to quickly test JavaScript directly in your browser without installing anything.
+      It is useful for debugging small pieces of code, experimenting with logic, and learning how JavaScript behaves in real time.
+    </p>
+
+    <h2>Common Use Cases</h2>
+    <ul>
+      <li>Testing functions before adding them to a project</li>
+      <li>Practicing loops, arrays, and objects</li>
+      <li>Debugging errors quickly</li>
+      <li>Trying API requests and data handling</li>
+    </ul>
+
+    <h2>How It Works</h2>
+    <p>
+      Your code runs inside a sandboxed environment using an iframe.
+      Console outputs are captured and displayed below.
+    </p>
+
+    <h2>Tips</h2>
+    <ul>
+      <li>Press <strong>Ctrl + Enter</strong> to run code faster</li>
+      <li>Return values like <code>2+2</code> will display automatically</li>
+      <li>Use examples to learn real-world patterns</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <div class="content">
+    <h2>Practice Challenges</h2>
+    <ul>
+      <li>Reverse a string</li>
+      <li>Find the largest number in an array</li>
+      <li>Remove duplicates from an array</li>
+      <li>Count vowels in a word</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+<div style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 20px;">Get more contents <a  href="https://omg10.com/4/10813147" style="color: burlywood;">here</a></div>
+<iframe id="sandbox" sandbox="allow-scripts"></iframe>
+
+<script>
+const iframe = document.getElementById('sandbox');
+const codeEl = document.getElementById('code');
+
+function print(text, type) {
+  const output = document.getElementById('output');
+  if (output.querySelector('.line-info')) output.innerHTML = '';
+
+  const line = document.createElement('div');
+  line.className = 'line-' + type;
+  line.textContent = text;
+  output.appendChild(line);
+}
+
+function runCode() {
+  const code = codeEl.value.trim();
+  const output = document.getElementById('output');
+  const status = document.getElementById('status');
+
+  output.innerHTML = '';
+  status.textContent = '';
+
+  if (!code) return print('// Nothing to run', 'info');
+
+  const sandboxHTML = `
+    <script>
+      const send = (type, msg) => parent.postMessage({ type, msg }, '*');
+
+      console.log = (...a) => send('log', a.join(' '));
+      console.warn = (...a) => send('warn', a.join(' '));
+      console.error = (...a) => send('error', a.join(' '));
+
+      try {
+        let result = (function(){ ${code} })();
+        if (result !== undefined) send('result', JSON.stringify(result));
+        send('done', 'Done');
+      } catch(e) {
+        send('error', e.message);
+        send('status-error', 'Error');
+      }
+    <\/script>
+  `;
+
+  iframe.srcdoc = sandboxHTML;
+}
+
+function clearOutput() {
+  document.getElementById('output').innerHTML =
+    '<span class="line-info">// Output will appear here...</span>';
+  document.getElementById('status').textContent = '';
+}
+
+function copyCode() {
+  codeEl.select();
+  document.execCommand('copy');
+}
+
+function loadExample(type) {
+  const examples = {
+
+api: `fetch('https://jsonplaceholder.typicode.com/users')
+  .then(res => res.json())
+  .then(data => data.slice(0,3).forEach(u => console.log(u.name)))
+  .catch(err => console.error(err));`,
+
+debounce: `function debounce(fn, delay){
+  let t;
+  return (...args)=>{
+    clearTimeout(t);
+    t=setTimeout(()=>fn(...args),delay);
+  };
+}
+const log = debounce(console.log,500);
+log("Typing...");
+log("Done");`,
+
+array: `const nums=[10,50,30,80];
+const result=nums.filter(n=>n>30).map(n=>n*2);
+console.log(result);`,
+
+timer: `let i=5;
+const t=setInterval(()=>{
+  console.log(i--);
+  if(i<0){clearInterval(t);console.log("Done");}
+},1000);`,
+
+validator: `function isValidEmail(e){
+ return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(e);
+}
+console.log(isValidEmail("test@gmail.com"));
+console.log(isValidEmail("bad-email"));`
+
+  };
+
+  codeEl.value = examples[type];
+}
+
+// messaging
+window.addEventListener('message', (e) => {
+  const { type, msg } = e.data;
+  const status = document.getElementById('status');
+
+  if (['log','warn','error','result'].includes(type)) print(msg, type);
+
+  if (type === 'done') {
+    status.textContent = msg;
+    status.style.color = '#7ec8a0';
+  }
+
+  if (type === 'status-error') {
+    status.textContent = msg;
+    status.style.color = '#f07070';
+  }
+});
+
+// autosave
+codeEl.addEventListener('input', () => {
+  localStorage.setItem('savedCode', codeEl.value);
+});
+
+window.onload = () => {
+  const saved = localStorage.getItem('savedCode');
+  if (saved) codeEl.value = saved;
+};
+
+// shortcut
+
+</script>
+
+</body>
+</html>
