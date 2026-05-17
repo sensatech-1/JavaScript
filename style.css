@@ -434,3 +434,102 @@ color: #f7df1e;
     .move-up { transform: translateY(0); }
     .footer-links { flex-direction: column; align-items: center; gap: 10px; }
 }
+/* --- Premium Responsive Navbar Extensions --- */
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #e5e2e1;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+/* Elegant sliding underline effect on hover */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #f7df1e; /* Matches your beautiful yellow accent */
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: #f7df1e;
+}
+
+/* Hide toggle icon on desktop */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #e5e2e1;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001; /* Higher index value to float over background content */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu-toggle:hover {
+    color: #f7df1e;
+}
+
+/* Responsive Mobile Layout Configuration */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Reveals toggle interface control button on mobile viewports */
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -100%; /* Keeps layout offscreen safely */
+        width: 75%;
+        height: 100vh;
+        background: rgba(19, 19, 19, 0.96); /* Dark base matching your original aesthetic */
+        backdrop-filter: blur(12px); /* Frosted blur styling accent */
+        -webkit-backdrop-filter: blur(12px);
+        padding: 120px 40px;
+        gap: 32px;
+        transition: right 0.4s cubic-bezier(0.1, 0.6, 0.4, 1); /* High-end ease timing transition */
+        box-shadow: -8px 0 25px rgba(0, 0, 0, 0.6);
+        border-left: 1px solid rgba(247, 223, 30, 0.15); /* Soft neon boundary trace */
+    }
+
+    .nav-links a {
+        font-size: 1.25rem;
+    }
+
+    /* Active Dynamic Toggled Classes */
+    .nav-links.active {
+        right: 0; /* Menu drawer slides in gracefully */
+    }
+
+    /* Interactive button element turns yellow and rotates into place */
+    .menu-toggle.active {
+        transform: rotate(90deg);
+        color: #f7df1e;
+    }
+}
