@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>SensaTech JS Academy | Subject 1.1 Quiz</title>
+    <meta name="description" content="Test your knowledge on the JavaScript engine, runtime environment, execution context, and call stack with the SensaTech interactive quiz.">
+    <meta name="robots" content="noindex, follow"> <style>
+        /* =========================================
+           CSS VARIABLES & RESET
+           ========================================= */
+        :root {
+            --js-yellow: #F7DF1E;
+            --js-yellow-dim: rgba(247, 223, 30, 0.15);
+            --js-yellow-hover: #e5cd15;
+            --bg-dark: #121212;
+            --bg-card: #1E1E1E;
+            --text-main: #E0E0E0;
+            --text-muted: #9E9E9E;
+            --error-red: #ff4a4a;
+            --success-green: #4aff80;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --border-radius: 8px;
+            --transition: 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* =========================================
+           TOP PROGRESS TRACKER
+           ========================================= */
+        .top-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 15px 5%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            height: 12px;
+            background-color: var(--js-yellow-dim);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-right: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--js-yellow);
+            width: 25%; /* Progress calculation changes per question */
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 20px;
+        }
+
+        .progress-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--js-yellow);
+            letter-spacing: 2px;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        /* =========================================
+           QUIZ CONTAINER & CARDS
+           ========================================= */
+        main {
+            flex-grow: 1;
+            padding: 120px 5% 120px 5%;
+            max-width: 750px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .quiz-card {
+            background-color: var(--bg-card);
+            padding: 35px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid #2d2d2d;
+            display: none;
+            animation: slideIn 0.4s ease forwards;
+        }
+
+        .quiz-card.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-tag {
+            color: var(--js-yellow);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .quiz-card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* =========================================
+           OPTIONS & FEEDBACK
+           ========================================= */
+        .options-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-btn {
+            width: 100%;
+            background-color: #262626;
+            border: 1px solid #3a3a3a;
+            color: var(--text-main);
+            padding: 16px 20px;
+            text-align: left;
+            font-size: 1.1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: #333333;
+            border-color: var(--js-yellow);
+            padding-left: 25px;
+        }
+
+        /* State Classes added dynamically via JS */
+        .option-btn.correct {
+            background-color: rgba(74, 255, 128, 0.15) !important;
+            border-color: var(--success-green) !important;
+            color: var(--success-green);
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: rgba(255, 74, 74, 0.12) !important;
+            border-color: var(--error-red) !important;
+            color: var(--error-red);
+            opacity: 0.7;
+        }
+
+        .feedback-box {
+            margin-top: 25px;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            background-color: #1a1a1a;
+            border-left: 4px solid var(--js-yellow);
+            display: none;
+            font-style: italic;
+            color: #b3b3b3;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* =========================================
+           NAVIGATION ACTION BAR
+           ========================================= */
+        .controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(18,18,18,0.95) 40%);
+            padding: 30px 5% 25px 5%;
+            display: flex;
+            justify-content: flex-end;
+            z-index: 1000;
+        }
+
+        .btn-next {
+            background-color: var(--js-yellow);
+            color: var(--bg-dark);
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: none; /* Only reveals when an answer is selected */
+        }
+
+        .btn-next:hover {
+            background-color: var(--js-yellow-hover);
+            box-shadow: 0 0 15px rgba(247, 223, 30, 0.3);
+        }
+
+        /* Results Screen Styling */
+        .results-container {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .score-display {
+            font-size: 3.5rem;
+            color: var(--js-yellow);
+            font-weight: 800;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="progress-container">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">1 / 4</div>
+    </header>
+
+    <main id="quizWrapper">
+
+        <div class="quiz-card active" data-q="1">
+            <div class="question-tag">Question 1</div>
+            <h2>Who is responsible for translating your JavaScript text file into fast machine code that the computer understands?</h2>
+            <div class="options-list">
+                <button class="option-btn" data-correct="false">The Browser Storage</button>
+                <button class="option-btn" data-correct="true">The JavaScript Engine (like V8)</button>
+                <button class="option-btn" data-correct="false">The Event Loop Manager</button>
+                <button class="option-btn" data-correct="false">The HTML Document Object Model</button>
+            </div>
+            <div class="feedback-box">
+                Exactly! The Engine acts as the central brain. It safely reads, analyzes, and converts your high-level text code into the native mechanical language your processor needs.
+            </div>
+        </div>
+
+        <div class="quiz-card" data-q="2">
+            <div class="question-tag">Question 2</div>
+            <h2>What style of compilation does modern JavaScript use to combine immediate startup with fast running speeds?</h2>
+            <div class="options-list">
+                <button class="option-btn" data-correct="false">Pure Line-by-Line Interpretation</button>
+                <button class="option-btn" data-correct="false">Ahead-Of-Time Blueprint Baking</button>
+                <button class="option-btn" data-correct="true">Just-In-Time (JIT) Compilation</button>
+                <button class="option-btn" data-correct="false">Manual Hardware Encoding</button>
+            </div>
+            <div class="feedback-box">
+                Spot on! JIT compilation lets the engine read things instantly with an interpreter while tracking hot performance zones to swap in optimized machine code sections on the fly.
+            </div>
+        </div>
+
+        <div class="quiz-card" data-q="3">
+            <div class="question-tag">Question 3</div>
+            <h2>During which phase of the Execution Context does the engine build workspace rooms and catalog variables before reading line one?</h2>
+            <div class="options-list">
+                <button class="option-btn" data-correct="true">The Creation Phase</button>
+                <button class="option-btn" data-correct="false">The Active Execution Phase</button>
+                <button class="option-btn" data-correct="false">The Event Loop Cycle</button>
+                <button class="option-btn" data-correct="false">The Stack Pop Phase</button>
+            </div>
+            <div class="feedback-box">
+                Perfect! In the Creation Phase, the engine scans ahead and locks down memory positions for functions and variables. This explains why they exist even before execution starts.
+            </div>
+        </div>
+
+        <div class="quiz-card" data-q="4">
+            <div class="question-tag">Question 4</div>
+            <h2>If a massive process is taking a long time, where does the Event Loop check for finished tasks once the Call Stack is completely empty?</h2>
+            <div class="options-list">
+                <button class="option-btn" data-correct="false">The Variable Creation Chamber</button>
+                <button class="option-btn" data-correct="false">The Main Global Execution Space</button>
+                <button class="option-btn" data-correct="false">The CPU Micro-Engine</button>
+                <button class="option-btn" data-correct="true">The Callback Queue</button>
+            </div>
+            <div class="feedback-box">
+                Awesome! The Callback Queue is where finished background tasks wait patiently on line until the Event Loop notices the chef's hands are empty and safely pulls them onto the stage.
+            </div>
+        </div>
+
+        <div class="quiz-card" id="resultsCard">
+            <div class="results-container">
+                <div class="question-tag">Subject 1.1 Verified</div>
+                <h2>Sensational Work!</h2>
+                <p>You have successfully cleared your first SensaTech Architecture benchmark. Your mind now completely maps out how data passes through the engine loop.</p>
+                <div class="score-display">100%</div>
+                <p style="color: var(--text-muted); font-style: italic;">Ready to tackle data containers and scope rules? Let's move straight into variables storage mechanics next!</p>
+            </div>
+        </div>
+
+    </main>
+
+    <nav class="controls">
+        <button id="actionBtn" class="btn-next">Next Question</button>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const TOTAL_QUESTIONS = 4;
+            let currentQuestion = 1;
+            let answered = false;
+
+            const cards = document.querySelectorAll('.quiz-card');
+            const actionBtn = document.getElementById('actionBtn');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+
+            // Initialize Progress
+            updateProgress();
+
+            // Set up Option Click Events
+            cards.forEach(card => {
+                const options = card.querySelectorAll('.option-btn');
+                const feedback = card.querySelector('.feedback-box');
+
+                options.forEach(button => {
+                    button.addEventListener('click', () => {
+                        if (answered) return; // Disallow switching answers
+                        
+                        answered = true;
+                        const isCorrect = button.getAttribute('data-correct') === 'true';
+
+                        // Lock options and highlight truth
+                        options.forEach(opt => {
+                            opt.disabled = true;
+                            if (opt.getAttribute('data-correct') === 'true') {
+                                opt.classList.add('correct');
+                            }
+                        });
+
+                        // Highlight chosen mistake if wrong
+                        if (!isCorrect) {
+                            button.classList.add('wrong');
+                        }
+
+                        // Show explanatory feedback text box
+                        if (feedback) {
+                            feedback.style.display = 'block';
+                        }
+
+                        // Configure action button appearance
+                        actionBtn.style.display = 'block';
+                        if (currentQuestion === TOTAL_QUESTIONS) {
+                            actionBtn.textContent = 'See Results';
+                        }
+                    });
+                });
+            });
+
+            // Handle main controller actions 
+            actionBtn.addEventListener('click', () => {
+                if (currentQuestion <= TOTAL_QUESTIONS) {
+                    // Hide current question card
+                    document.querySelector(`.quiz-card[data-q="${currentQuestion}"]`).classList.remove('active');
+                    
+                    currentQuestion++;
+                    answered = false;
+                    actionBtn.style.display = 'none';
+
+                    if (currentQuestion <= TOTAL_QUESTIONS) {
+                        // Reveal next question card
+                        document.querySelector(`.quiz-card[data-q="${currentQuestion}"]`).classList.add('active');
+                        updateProgress();
+                    } else {
+                        // Reveal Final Results Summary Card
+                        document.getElementById('resultsCard').classList.add('active');
+                        progressBar.style.width = '100%';
+                        progressText.textContent = 'Done!';
+                        actionBtn.textContent = 'Move to 1.2';
+                        actionBtn.style.display = 'block';
+                    }
+                } else {
+                    // Quiz completely verified, route cleanly onto next topic page
+                    window.location.href = 'onepointtwo.html';
+                }
+            });
+
+            function updateProgress() {
+                if (currentQuestion <= TOTAL_QUESTIONS) {
+                    const pct = ((currentQuestion - 1) / TOTAL_QUESTIONS) * 100;
+                    progressBar.style.width = `${pct || 5}%`; // tiny fallback fill on Q1 so container feels structural
+                    progressText.textContent = `${currentQuestion} / ${TOTAL_QUESTIONS}`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
