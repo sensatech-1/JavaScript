@@ -79,7 +79,13 @@ z-index: 10;
     font-size: 1.5rem;
     letter-spacing: -1px;
 }
-
+li{
+    font-size: 1rem;
+    color: dodgerblue;
+}
+.ul{
+    border: 12px blue;
+}
 .nav-links a {
     color: #a1a1aa;
     text-decoration: none;
@@ -210,15 +216,15 @@ z-index: 10;
     border-radius: 20px;
     overflow: hidden;
     aspect-ratio: 1/1;
-    background: var(--surface-high);
+    
 }
 
 .image-container img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.6;
-    filter: grayscale(1) contrast(1.2);
+    height: auto;
+    
+    
+    
 }
 
 .data-badge {
@@ -445,7 +451,7 @@ color: #f7df1e;
 
 .nav-links {
     display: flex;
-    gap: 25px;
+    gap: 10px;
 }
 
 .nav-links a {
@@ -455,7 +461,12 @@ color: #f7df1e;
     font-size: 1rem;
     transition: color 0.3s ease;
     position: relative;
-    padding-bottom: 4px;
+    padding-bottom: 1px;
+    line-height: 1.6;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Elegant sliding underline effect on hover */
@@ -512,14 +523,14 @@ color: #f7df1e;
         backdrop-filter: blur(12px); /* Frosted blur styling accent */
         -webkit-backdrop-filter: blur(12px);
         padding: 120px 40px;
-        gap: 32px;
+        gap: 1px;
         transition: right 0.4s cubic-bezier(0.1, 0.6, 0.4, 1); /* High-end ease timing transition */
         box-shadow: -8px 0 25px rgba(0, 0, 0, 0.6);
         border-left: 1px solid rgba(247, 223, 30, 0.15); /* Soft neon boundary trace */
     }
 
     .nav-links a {
-        font-size: 1.25rem;
+        font-size: 1.03rem;
     }
 
     /* Active Dynamic Toggled Classes */

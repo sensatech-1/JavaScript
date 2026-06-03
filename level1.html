@@ -3,85 +3,87 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Level 1 - JS Fundamentals</title>
+    
+    <title>Level 1: Foundation Architecture | SensaTech JavaScript Academy</title>
+    <meta name="description" content="Master the core mechanics of JavaScript with Level 1. Learn about the V8 engine, execution contexts, variables, primitive data types, operators, and foundational data structures.">
+    <meta name="keywords" content="JavaScript basics, V8 engine, var let const, JavaScript data types, expressions, arrays, objects, tech tutorials">
+    
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;500;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
     <link rel="stylesheet" href="courses.css">
-    </head>
+</head>
 <body>
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
         <div class="nav-logo">
-            <span class="material-symbols-outlined icon-brand">terminal</span>
-            <span class="brand-text">JS UNLOCKED</span>
+            <span class="material-symbols-outlined icon-brand" aria-hidden="true">terminal</span>
+            <span class="brand-text">SensaTech Academy</span>
         </div>
-        <a href="index.html" class="btn-secondary">BACK</a>
+        <a href="index.html" class="btn-secondary" aria-label="Return to homepage">BACK</a>
     </nav>
 
     <main class="container">
         <header class="hero">
             <div class="hero-content">
-                <h1 class="headline-xl">Level 1: Basics</h1>
-                <p class="body-lg">Start Learning Below</p>
+                <h1 class="headline-xl">Level 1: Foundation Architecture</h1>
+                <p class="body-lg">Master the basic building blocks of programming and core JavaScript mechanics.</p>
             </div>
         </header>
 
         <div class="bento-grid">
-            <a href="variables-note.html">
-                
-            <div class="card">
-                <div class="card-header">
-                    <span class="badge"> 01</span>
-                     
+            
+            <a href="introduction-to-javascript.html" aria-label="Subject 1.1: Introduction to JavaScript">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="badge">01</span>
+                    </div>
+                    <h3 class="headline-md">The Engine & Environment</h3>
+                    <p class="body-md">Discover how JavaScript executes under the hood, exploring the V8 Engine, workspace contexts, and the call stack.</p>
                 </div>
-                <h3 class="headline-md">Variables</h3>
-                <p class="body-md">Learn how to store data using let, const, and var.</p>
-            </div>
             </a>
             
-            <div class="card">
-                <div class="card-header">
-                    <span class="badge">02</span>
-
+            <a href="variables-note.html" aria-label="Subject 1.2: Variables and Data Structure In JavaScript">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="badge">02</span>
+                    </div>
+                    <h3 class="headline-md">Variables & Data Storage</h3>
+                    <p class="body-md">Learn to build clean data containers using var, let, and const while mastering block and function scope boundaries.</p>
                 </div>
-                <h3 class="headline-md">Operators</h3>
-                <p class="body-md">Math and logic: addition, subtraction, and comparisons.</p>
-            </div>
+            </a>
 
-            <div class="card">
-                <div class="card-header">
-                    <span class="badge"> 03</span>
-
+            <a href="datatypes-note.html" aria-label="Subject 1.3: Data Types and Primitive Values">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="badge">03</span>
+                    </div>
+                    <h3 class="headline-md">Data Types & Primitives</h3>
+                    <p class="body-md">Work natively with Strings, Numbers, Booleans, Null, and Undefined alongside template literal patterns.</p>
                 </div>
-                <h3 class="headline-md">Control Flow (If/Else)</h3>
-                <p class="body-md">Learn about basic Conditions in javascript</p>
-            </div>
+            </a>
 
-            <div class="card">
-                <div class="card-header">
-   <span class="badge"> 04</span>
+            <a href="operators-note.html" aria-label="Subject 1.4: Operators and Expressions">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="badge">04</span>
+                    </div>
+                    <h3 class="headline-md">Operators & Expressions</h3>
+                    <p class="body-md">Break down mathematical operations, value assignments, logical evaluations, and loose versus strict comparisons.</p>
                 </div>
-                <h3 class="headline-md">Loops (For/While)</h3>
-                <p class="body-md">Learn to make loops in js and types</p>
-            </div>
+            </a>
 
-            <div class="card">
-                <div class="card-header">
-               <span class="badge"> 05</span>
+            <a href="literals-note.html" aria-label="Subject 1.5: Basic Array and Object Literals">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="badge">05</span>
+                    </div>
+                    <h3 class="headline-md">Array & Object Literals</h3>
+                    <p class="body-md">Construct flexible custom data collections and access element values securely via indexes and dot properties.</p>
                 </div>
-                <h3 class="headline-md">Functions</h3>
-                <p class="body-md">Writing reusable blocks of code for your apps.</p>
-            </div>
+            </a>
 
-            <div class="card">
-                <div class="card-header">
-   <span class="badge"> 06</span>
-                </div>
-                <h3 class="headline-md">Scope & Hoisting</h3>
-                <p class="body-md">Mastering variable accessibility clarifies how logic flows through your applications.</p>
-            </div>
         </div>
     </main>
-<div style="
+    <div style="
     width:100%;
     max-width:900px;
     margin:20px auto;
@@ -93,7 +95,7 @@
     position:relative;
     overflow:hidden;
 ">
-
+    
     <!-- Label -->
     <div style="
         position:absolute;
@@ -110,7 +112,7 @@
     ">
         Ads
     </div>
-
+    
     <!-- Ad Content Area -->
     <div style="
         min-height:120px;
@@ -121,13 +123,12 @@
         font-family:Arial,sans-serif;
         text-align:center;
     ">
-
-    <script async="async" data-cfasync="false" src="https://pl29218709.effectivecpmnetwork.com/fb88ebd5f5f6a75f12ff91873c70f4bb/invoke.js"></script>
-<div id="container-fb88ebd5f5f6a75f12ff91873c70f4bb"></div>
-
+        
+        <script async="async" data-cfasync="false" src="https://pl29218709.effectivecpmnetwork.com/fb88ebd5f5f6a75f12ff91873c70f4bb/invoke.js"></script>
+        <div id="container-fb88ebd5f5f6a75f12ff91873c70f4bb"></div>
+        
     </div>
 </div>
 <script src="https://pl29218706.effectivecpmnetwork.com/3a/ab/9e/3aab9e9e0bf53186d28a33d206bb4aab.js"></script>
-
 </body>
 </html>

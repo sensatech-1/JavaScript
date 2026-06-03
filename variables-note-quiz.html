@@ -321,96 +321,143 @@
     <nav class="controls">
         <button id="actionBtn" class="btn-next">Next Question</button>
     </nav>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const TOTAL_QUESTIONS = 4;
-            let currentQuestion = 1;
-            let answered = false;
+    const TOTAL_QUESTIONS = 4;
 
-            const cards = document.querySelectorAll('.quiz-card');
-            const actionBtn = document.getElementById('actionBtn');
-            const progressBar = document.getElementById('progressBar');
-            const progressText = document.getElementById('progressText');
+    let currentQuestion = 1;
+    let score = 0;
 
-            // Initialize Progress
+    const questionCards = document.querySelectorAll('.quiz-card[data-q]');
+    const actionBtn = document.getElementById('actionBtn');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const resultsCard = document.getElementById('resultsCard');
+    const scoreDisplay = document.querySelector('.score-display');
+
+    updateProgress();
+
+    // =========================
+    // OPTION BUTTON EVENTS
+    // =========================
+    questionCards.forEach(card => {
+
+        let answered = false;
+
+        const options = card.querySelectorAll('.option-btn');
+        const feedback = card.querySelector('.feedback-box');
+
+        options.forEach(button => {
+
+            button.addEventListener('click', () => {
+
+                if (answered) return;
+
+                answered = true;
+
+                const isCorrect =
+                    button.dataset.correct === 'true';
+
+                // Add score
+                if (isCorrect) {
+                    score++;
+                }
+
+                // Lock buttons
+                options.forEach(opt => {
+
+                    opt.disabled = true;
+
+                    if (opt.dataset.correct === 'true') {
+                        opt.classList.add('correct');
+                    }
+                });
+
+                // Wrong selection highlight
+                if (!isCorrect) {
+                    button.classList.add('wrong');
+                }
+
+                // Show feedback
+                feedback.style.display = 'block';
+
+                // Show navigation button
+                actionBtn.style.display = 'block';
+
+                // Last question button text
+                if (currentQuestion === TOTAL_QUESTIONS) {
+                    actionBtn.textContent = 'See Results';
+                }
+            });
+        });
+    });
+
+    // =========================
+    // NEXT BUTTON
+    // =========================
+    actionBtn.addEventListener('click', () => {
+
+        const currentCard =
+            document.querySelector(
+                `.quiz-card[data-q="${currentQuestion}"]`
+            );
+
+        if (currentCard) {
+            currentCard.classList.remove('active');
+        }
+
+        currentQuestion++;
+
+        actionBtn.style.display = 'none';
+
+        // More questions remaining
+        if (currentQuestion <= TOTAL_QUESTIONS) {
+
+            const nextCard =
+                document.querySelector(
+                    `.quiz-card[data-q="${currentQuestion}"]`
+                );
+
+            nextCard.classList.add('active');
+
             updateProgress();
 
-            // Set up Option Click Events
-            cards.forEach(card => {
-                const options = card.querySelectorAll('.option-btn');
-                const feedback = card.querySelector('.feedback-box');
+        } else {
 
-                options.forEach(button => {
-                    button.addEventListener('click', () => {
-                        if (answered) return; // Disallow switching answers
-                        
-                        answered = true;
-                        const isCorrect = button.getAttribute('data-correct') === 'true';
+            // =========================
+            // SHOW RESULTS
+            // =========================
 
-                        // Lock options and highlight truth
-                        options.forEach(opt => {
-                            opt.disabled = true;
-                            if (opt.getAttribute('data-correct') === 'true') {
-                                opt.classList.add('correct');
-                            }
-                        });
+            resultsCard.classList.add('active');
 
-                        // Highlight chosen mistake if wrong
-                        if (!isCorrect) {
-                            button.classList.add('wrong');
-                        }
+            const percent =
+                Math.round((score / TOTAL_QUESTIONS) * 100);
 
-                        // Show explanatory feedback text box
-                        if (feedback) {
-                            feedback.style.display = 'block';
-                        }
+            scoreDisplay.textContent = `${percent}%`;
 
-                        // Configure action button appearance
-                        actionBtn.style.display = 'block';
-                        if (currentQuestion === TOTAL_QUESTIONS) {
-                            actionBtn.textContent = 'See Results';
-                        }
-                    });
-                });
-            });
+            progressBar.style.width = '100%';
+            progressText.textContent = 'Done!';
 
-            // Handle main controller actions 
-            actionBtn.addEventListener('click', () => {
-                if (currentQuestion <= TOTAL_QUESTIONS) {
-                    // Hide current question card
-                    document.querySelector(`.quiz-card[data-q="${currentQuestion}"]`).classList.remove('active');
-                    
-                    currentQuestion++;
-                    answered = false;
-                    actionBtn.style.display = 'none';
+            actionBtn.textContent = 'Move to 1.2';
+            actionBtn.style.display = 'block';
+        }
+    });
 
-                    if (currentQuestion <= TOTAL_QUESTIONS) {
-                        // Reveal next question card
-                        document.querySelector(`.quiz-card[data-q="${currentQuestion}"]`).classList.add('active');
-                        updateProgress();
-                    } else {
-                        // Reveal Final Results Summary Card
-                        document.getElementById('resultsCard').classList.add('active');
-                        progressBar.style.width = '100%';
-                        progressText.textContent = 'Done!';
-                        actionBtn.textContent = 'Move to 1.2';
-                        actionBtn.style.display = 'block';
-                    }
-                } else {
-                    // Quiz completely verified, route cleanly onto next topic page
-                    window.location.href = 'onepointtwo.html';
-                }
-            });
+    // =========================
+    // PROGRESS FUNCTION
+    // =========================
+    function updateProgress() {
 
-            function updateProgress() {
-                if (currentQuestion <= TOTAL_QUESTIONS) {
-                    const pct = ((currentQuestion - 1) / TOTAL_QUESTIONS) * 100;
-                    progressBar.style.width = `${pct || 5}%`; // tiny fallback fill on Q1 so container feels structural
-                    progressText.textContent = `${currentQuestion} / ${TOTAL_QUESTIONS}`;
-                }
-            }
-        });
-    </script>
+        const pct =
+            ((currentQuestion - 1) / TOTAL_QUESTIONS) * 100;
+
+        progressBar.style.width = `${pct}%`;
+
+        progressText.textContent =
+            `${currentQuestion} / ${TOTAL_QUESTIONS}`;
+    }
+});
+</script>
 </body>
 </html>

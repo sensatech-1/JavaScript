@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+  
+</body>
+
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,137 +39,380 @@
     </header>
 
     <main id="notesContainer">
+<!-- Floating Code Button -->
+<button onclick="openCodeEditor()" style="
+position:fixed;
+bottom:80%;
+right:20px;
+padding:20px;
+background:#f0c040;
+color:#000;
+border:none;
+border-radius:50%;
+font-weight:bold;
+cursor:pointer;
+z-index:9998;
+opacity: 0.5;
+font-family:monospace;
+">
+    Code 
+</button>
 
+<!-- Editor Drawer -->
+<div id="codeDrawer" style="
+position:fixed;
+left:0;
+bottom:-100%;
+width:100%;
+height:75vh;
+background:#0f0f0f;
+z-index:9999;
+transition:0.4s ease;
+border-top:2px solid #333;
+display:flex;
+flex-direction:column;
+">
+    
+    <!-- Header -->
+    <div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+background:#181818;
+border-bottom:1px solid #333;
+">
+        
+        <h3 style="
+margin:0;
+color:#f0c040;
+font-family:monospace;
+">
+            JavaScript Playground
+        </h3>
+        
+        <button onclick="closeCodeEditor()" style="
+width:40px;
+height:40px;
+border:none;
+border-radius:50%;
+background:#f07070;
+color:white;
+font-size:20px;
+cursor:pointer;
+">
+            ✕
+        </button>
+        
+    </div>
+    
+    <!-- Code Area -->
+    <textarea id="editorCode" style="
+flex:1;
+width:100%;
+background:#111;
+color:#fff;
+border:none;
+outline:none;
+padding:15px;
+font-family:monospace;
+font-size:14px;
+resize:none;
+">// Write JavaScript here
+
+console.log("Hello World");
+</textarea>
+    
+    <!-- Controls -->
+    <div style="
+padding:10px;
+display:flex;
+gap:10px;
+border-top:1px solid #333;
+background:#181818;
+">
+        
+        <button onclick="runEditorCode()" style="
+background:#22c55e;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+">
+            Run
+        </button>
+        
+        <button onclick="document.getElementById('editorCode').value='';" style="
+background:#444;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+">
+            Clear
+        </button>
+        
+        <button onclick="navigator.clipboard.writeText(document.getElementById('editorCode').value)" style="
+background:#2563eb;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+">
+            Copy
+        </button>
+        
+    </div>
+    
+    <!-- Output -->
+    <div id="editorOutput" style="
+height:180px;
+overflow:auto;
+background:#000;
+color:#7ec8a0;
+padding:15px;
+font-family:monospace;
+border-top:1px solid #333;
+white-space:pre-wrap;
+">
+        Output will appear here...
+    </div>
+    
+</div>
+
+<script>
+    function openCodeEditor() {
+        document.getElementById("codeDrawer").style.bottom = "0";
+    }
+    
+    function closeCodeEditor() {
+        document.getElementById("codeDrawer").style.bottom = "-100%";
+    }
+    
+    function runEditorCode() {
+        
+        const code =
+            document.getElementById("editorCode").value;
+        
+        const output =
+            document.getElementById("editorOutput");
+        
+        output.textContent = "";
+        
+        const logs = [];
+        
+        const oldLog = console.log;
+        
+        console.log = (...args) => {
+            logs.push(args.join(" "));
+        };
+        
+        try {
+            const result = eval(code);
+            
+            if (result !== undefined) {
+                logs.push("=> " + result);
+            }
+            
+        } catch (err) {
+            logs.push("Error: " + err.message);
+        }
+        
+        console.log = oldLog;
+        
+        output.textContent =
+            logs.join("\n") || "Code executed successfully.";
+    }
+</script>
+</div>
    <article class="note-section active" data-index="1">
-    <h1>1. Introduction to JavaScript & The Runtime</h1>
+    <h1>1. What is a Variable?</h1>
     <div class="note-box">
-        <p>Before we dissect the gears and machinery of execution, we must define the entity itself. <strong>JavaScript</strong> is a high-level, dynamic, multi-paradigm, and single-threaded language. Originally designed to bring simple animations to web browsers, it has evolved into the most widely deployed programming language on Earth, powering everything from enterprise server architectures to machine learning models.</p>
+        <p>Imagine you are moving to a new house. You pack up your things into cardboard boxes, grab a marker, and write "Kitchen Stuff" on one, and "Books" on another. By labeling those boxes, you don't have to rip them open every time you need to know what is inside.</p>
         
-        <div class="story-highlight">
-            "When the SensaTech core platform was first conceived, the founding developers viewed JavaScript merely as a lightweight scripting tool—a quick way to handle button clicks and form submissions. It wasn't until a catastrophic memory leak brought down the staging server that they realized the truth: JavaScript isn't just a helper script; it is a highly sophisticated, asynchronous beast. To harness its true power, you cannot just write it; you have to understand exactly how it lives, breathes, and executes."
-        </div>
+        <p>In JavaScript, a <strong>variable</strong> is exactly like one of those labeled boxes. When you write a program, you constantly need your computer to remember things—like a user's name, their high score in a game, or the items in their shopping cart.</p>
 
-        <p>To truly understand JavaScript, you must look past its syntax and explore its core characteristics. It is <strong>high-level</strong>, meaning it handles complex memory allocation automatically so you don't have to write low-level code. It is <strong>dynamic</strong>, allowing variables to hold any type of data and change on the fly. Most importantly, it is <strong>just-in-time (JIT) compiled</strong>, combining the speed of compiled languages like C++ with the flexibility of interpreted scripts.</p>
+        <p>Instead of trying to type out that exact data over and over again, you create a digital box, put the data inside it, and write a label on the outside. In programming, we call this label the <strong>variable name</strong>.</p>
 
-        <p>However, JavaScript does not run in isolation. It requires a specialized host ecosystem known as the <strong>Runtime Environment</strong>. In a web browser, this environment wraps around the core engine, equipping it with extra superpowers like the Document Object Model (DOM) for UI manipulation, timers, and network capabilities via the Fetch API. This section marks the beginning of your journey into mastering how the language and its environment work in perfect synchronization.</p>
+        <p>For example, you might create a box labeled <code>playerScore</code> and put the number <code>100</code> inside it. Later on, when your game needs to display the score on the screen, you don't type "100". You just tell JavaScript to look inside the <code>playerScore</code> box. If the player gets more points, you just reach into the box and change the number.</p>
+
+        <p>Using variables makes your code readable, flexible, and easy to maintain. To build these boxes, JavaScript gives us three specific keywords: <strong>let</strong>, <strong>const</strong>, and the older <strong>var</strong>. In the next few sections, we are going to break down exactly how to create these containers and the specific rules for using them.</p>
     </div>
 </article>
 
 
 
-        <article class="note-section" data-index="2">
-    <h1>2. Inside the Engine: V8 and JIT Compilation</h1>
+
+      <article class="note-section" data-index="2">
+    <h1>2. Declaring Variables & The Assignment Operator</h1>
     <div class="note-box">
-        <p>Your computer doesn't actually know what <code>const total = 10</code> means. To a computer processor, your JavaScript file is just a bunch of text. That is where the <strong>JavaScript Engine</strong> comes in. It is a program built specifically to take your text files and translate them into machine code that the computer's hardware can actually run.</p>
-        
-        <div class="story-highlight">
-            "When SensaTech first launched its web app, it was painfully slow. We kept throwing money at faster servers, but nothing changed. Finally, our lead developer looked under the hood and realized the problem: our JavaScript was written so poorly that the browser's engine had to keep re-translating it dozens of times a second. Once we learned how the engine actually reads our files, we fixed the lag without spending a dime."
-        </div>
+        <p>Now that you know what a variable is, let's look at how we actually build one in JavaScript. Making a variable is a two-step process: first, you tell the computer to build the box (<strong>declaration</strong>), and second, you put something inside it (<strong>assignment</strong>).</p>
 
-        <p>The most famous engine out there is Google’s <strong>V8</strong>, which runs Google Chrome and Node.js. Older programming languages usually translate code in one of two ways: they either use an <em>Interpreter</em> (translating line-by-line on the fly, which starts fast but runs slow) or a <em>Compiler</em> (translating the whole file ahead of time, which takes time up front but runs fast later).</p>
+        <p>To create a box, you start by using a keyword like <code>let</code>, followed by the name you want to give your box. This looks like this:</p>
+        <p><code>let userLoginName;</code></p>
+        <p>Right now, the box exists, but it is completely empty. In JavaScript, if you open an empty box, it gives you back a special word: <code>undefined</code>. It literally means the value has not been defined yet.</p>
 
-        <p>JavaScript gets the best of both worlds by using something called <strong>JIT (Just-In-Time) Compilation</strong>. The engine starts running your code instantly using a fast interpreter. While it’s running, a helper program watches the code. If it sees you running the same function over and over, it grabs that function, compiles it into super-fast machine code, and swaps it in on the fly. That is why modern JavaScript is fast enough to run heavy web apps."</p>
+        <p>To put a value inside the box, we use the equal sign (<code>=</code>). In programming, we call this the <strong>assignment operator</strong>, but it does not mean "equal to" like it does in math. Instead, it acts like an arrow pushing a value from the right side into the box on the left side:</p>
+        <p><code>userLoginName = "Alex123";</code></p>
+
+        <p>You can also combine both steps into one single line to save time, creating the box and filling it immediately:</p>
+        <p><code>let userLoginName = "Alex123";</code></p>
+
+        <p>Once a variable is created using <code>let</code>, you can change its contents later without using the keyword again. You just state the box name and push a new value inside:</p>
+        <p><code>userLoginName = "Sam456";</code></p>
+        <p>Now, the old name "Alex123" is tossed in the trash, and the box holds "Sam456".</p>
     </div>
 </article>
 
 
-      <article class="note-section" data-index="3">
-    <h1>3. The Execution Context: How JS Prepares to Run</h1>
+
+<article class="note-section" data-index="3">
+    <h1>3. Naming Rules & CamelCase</h1>
     <div class="note-box">
-        <p>Before the JavaScript engine executes even a single line of your code, it needs to set up an environment for it to live in. This environment is called the <strong>Execution Context</strong>. Think of it like a staging area or a workspace where all the tools and variables are laid out before the actual work begins.</p>
+        <p>You can't just give your variables any random name you want. JavaScript has a few strict rules about what characters are allowed on a label, and breaking them will cause your whole website to crash with a nasty error.</p>
+
+        <p>Here are the official rules you must follow when naming your boxes:</p>
+        <p>• <strong>No Spaces:</strong> A variable name must be one continuous word. You cannot name a box <code>let user name</code>. JavaScript will get confused and think you are trying to write multiple separate commands.</p>
+        <p>• <strong>Start with Letters, $, or _:</strong> Your name can include numbers, but it <em>cannot</em> start with a number. For example, <code>let player1</code> is perfectly fine, but <code>let 1player</code> will instantly break your code.</p>
+        <p>• <strong>No Hidden Keywords:</strong> You cannot use words that JavaScript already uses for its own features, like <code>let let</code> or <code>let const</code>. These are called reserved words.</p>
+
+        <p>Because spaces aren't allowed, human eyes have a tough time reading long names like <code>lettotalshoppingcartcost</code>. To fix this, web developers use a coding style called <strong>camelCase</strong>.</p>
         
-        <div class="story-highlight">
-            "One night at the SensaTech lab, a developer was trying to figure out why a variable was printing out as 'undefined' instead of throwing a hard crash error. She swore the code hadn't even reached the line where that variable was made yet. A senior dev looked over and smiled, 'JavaScript already knows your variable exists because it built the room for it before it even started reading line one. Welcome to the creation phase.'"
+        <p>With camelCase, you start the very first word with a lowercase letter, and then capitalize the first letter of every single word that comes after it. It looks like this: <code>totalShoppingCartCost</code> or <code>userLoginStatus</code>. The bumps in the capital letters look like the humps on a camel, which makes it super easy to read at a single glance!</p>
+
+        <div style="background-color: rgba(247, 223, 30, 0.08); border: 1px dashed var(--js-yellow); padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center;">
+            <p style="margin: 0; font-weight: 500; color: #ffffff;">
+                🚀 <strong>Try It Out Yourself:</strong> Want to practice declaring your own variable names? Just click on that <strong>floating code button</strong> on your screen to open up your live editor, type out a camelCase variable, and run your code instantly!
+            </p>
         </div>
-
-        <p>The very first workspace the engine creates is called the <strong>Global Execution Context</strong>. This is the default zone where your code runs if it isn't inside a function. Whenever you run a JavaScript file, the engine automatically gives you two things for free in this global space: a global object (in browsers, this is the <code>window</code> object) and a special keyword called <code>this</code>.</p>
-
-        <p>To set this up, the engine goes through two quick steps:</p>
-        <p>1. <strong>The Creation Phase:</strong> The engine scans your code and sets up memory space for all your variables and functions. It doesn't run your code yet; it just takes inventory.</p>
-        <p>2. <strong>The Execution Phase:</strong> The engine goes back to the top of the file and actually runs your code line-by-line, assigning values to your variables and executing your functions.</p>
     </div>
 </article>
+
 
 
         <article class="note-section" data-index="4">
-    <h1>4. The Call Stack: Keeping Track of Your Code</h1>
+    <h1>4. Introducing Const: The Locked Box</h1>
     <div class="note-box">
-        <p>JavaScript is a single-threaded language, which is just a techy way of saying it can only do one thing at a time. It has a single track mind. To keep track of which function is currently running and what needs to run next, the engine uses a tool called the <strong>Call Stack</strong>.</p>
-        
-        <div class="story-highlight">
-            "During a SensaTech team sprint, a newly hired developer wrote a function that accidentally called itself over and over without stopping. Within seconds, the web browser froze completely, and the console lit up with a red error: 'Maximum call stack size exceeded.' A senior developer walked over, pointed at the screen, and said, 'You just overloaded the stack. You piled up so many tasks that the engine ran out of memory and choked.'"
-        </div>
+        <p>So far, we have been using the keyword <code>let</code> to build our data boxes. As you saw, <code>let</code> is great because it is flexible—you can throw something inside it today and swap it out for something else tomorrow. But what if you have data that should <em>never</em> change?</p>
 
-        <p>Think of the Call Stack like a stack of Pringles chips or a pile of dinner plates. When you call a function, the engine pops it onto the top of the stack. When that function finishes running, the engine yanks it off the top of the stack.</p>
+        <p>Imagine you are building an app and you want to store a user's date of birth, or the value of Pi in math, or even the name of your company. If another part of your program accidentally changes that information later on, it could break your entire system.</p>
 
-        <p>This follows a rule called <strong>LIFO (Last In, First Out)</strong>. Whichever function gets tossed onto the stack last is the very first one that needs to finish and leave. Here is a quick example of how it moves:</p>
-        <p>1. You call <code>functionA()</code>. It jumps onto the stack.</p>
-        <p>2. Inside <code>functionA()</code>, you call <code>functionB()</code>. Now <code>functionB()</code> sits on top of <code>functionA()</code>.</p>
-        <p>3. The engine finishes running <code>functionB()</code> first, pops it off the stack, and then goes back down to finish up <code>functionA()</code>.</p>
+        <p>To protect your data from accidental changes, JavaScript gives us a second keyword called <strong>const</strong> (which is short for "constant").</p>
 
-        <p>If you ever hear the term <strong>Stack Overflow</strong>, it just means you wrote code (usually an infinite loop) that kept adding functions to the stack without ever letting them finish, causing the pile to crash right through the roof of your computer's memory limits.</p>
+        <p>While a <code>let</code> box is like a standard cardboard box that you can reopen and refill anytime, a <code>const</code> box is like a solid steel safe. The moment you declare a <code>const</code> box, you *must* put a value inside it immediately. Once that value is locked in, it is sealed forever. You are strictly forbidden from changing it.</p>
+
+        <p>If you try to re-assign a new value to a <code>const</code> variable, JavaScript will instantly stop your program and throw a loud error message across the screen. It might feel frustrating to see an error, but this is actually JavaScript acting like a helpful guardrail, making sure you don't accidentally ruin important data by mistake.</p>
+
+        <p>As a golden rule for modern web development: always use <code>const</code> by default for your boxes. Only use <code>let</code> if you are absolutely certain that the data inside the box will need to change later on.</p>
     </div>
 </article>
+
 
 
         <article class="note-section" data-index="5">
-    <h1>5. The Runtime Environment: Beyond the Engine</h1>
+    <h1>5. The Legacy Keyword: Understanding Var</h1>
     <div class="note-box">
-        <p>A lot of people think JavaScript can automatically do things like create pop-up windows, talk to databases, or track your mouse clicks on its own. In reality, the core JavaScript engine is actually pretty blind—it doesn't know what a web page or a browser is. It just processes data.</p>
+        <p>Before modern updates came along, developers didn't have <code>let</code> or <code>const</code>. For the first twenty years of JavaScript's life, there was only one way to make a data box: a keyword called <strong>var</strong> (short for variable).</p>
+
+        <p>While <code>var</code> still works today, it is highly discouraged in modern web development because it behaves in wild, unpredictable ways. To understand why it's dangerous, think of <code>let</code> and <code>const</code> as modern, smart storage boxes, while <code>var</code> is like a glitchy, haunted box from the 1990s.</p>
+
+        <h3>The Duplication Glitch</h3>
+        <p>In real life, if you buy a dog and name it <em>Buddy</em>, and then buy a second dog and also name it <em>Buddy</em>, things get confusing. Modern JavaScript knows this. If you try to declare two boxes with the exact same name using <code>let</code>, the engine will yell at you:</p>
         
-        <div class="story-highlight">
-            "When we were designing the first user interface at SensaTech, a new student got frustrated because he couldn't find where the code for the browser's scrollbar lived inside the JavaScript language manual. We had to sit him down and explain that JavaScript is just the driver; the browser is the actual car. You won't find the steering wheel inside the engine block."
-        </div>
+        <p><code>let user = "Alice";</code></p>
+        <p><code>let user = "Bob"; // ❌ ERROR! You already have a box named user!</code></p>
 
-        <p>To actually build websites, the engine relies on its surroundings, which we call the <strong>Runtime Environment</strong>. When you are learning web development, your runtime environment is the web browser (like Chrome, Safari, or Edge).</p>
+        <p>This error is a beautiful safety net because it prevents you from accidentally wiping out your old data. But watch what happens when you use the old <code>var</code> keyword:</p>
 
-        <p>The browser acts like a powerhouse helper that surrounds the engine. It hands JavaScript a bunch of extra tools that aren't part of the language itself. These include:</p>
-        
-        <p>• <strong>The DOM (Document Object Model):</strong> The tools that let JavaScript see, change, and style your HTML text on the screen.</p>
-        <p>• <strong>Web APIs:</strong> Built-in browser features like timers, fetch buttons for loading data from other websites, and audio playback tools.</p>
-        <p>• <strong>Event Listeners:</strong> The browser's security guards that watch out for when a user clicks a button, scrolls, or types, and then instantly alerts your JavaScript code to react.</p>
+        <p><code>var user = "Alice";</code></p>
+        <p><code>var user = "Bob"; // 👍 JavaScript says nothing and silently overwrites it!</code></p>
 
-        <p>By keeping the engine separate from the environment, JavaScript can be used in different places. For example, when JavaScript runs on a backend server instead of a browser, it gets a completely different environment with tools for saving files and managing databases instead of tools for rendering webpages.</p>
+        <p>With <code>var</code>, JavaScript doesn't check if the box already exists. It just deletes your old data without warning. If you are working on a massive website with thousands of lines of code, you could accidentally reuse a variable name that a teammate wrote, completely destroying their logic without ever realizing it.</p>
+
+        <h3>Why Is This Useful to Know?</h3>
+        <ul>
+            <li><strong>Reading Older Code:</strong> You will see <code>var</code> used in older tutorials, stack overflow answers, and legacy company systems. Knowing what it is prevents you from panicking when you encounter it.</li>
+            <li><strong>Interview Gold:</strong> Senior developers love asking beginners why we don't use <code>var</code> anymore. Remembering that <code>var</code> lacks safety checks and allows silent duplication is a massive win for your tech foundation.</li>
+        </ul>
+
+        <p>In short: Treat <code>var</code> like a historic museum artifact. Look at it, understand it, but don't build your new projects with it!</p>
     </div>
 </article>
 
 
-        <article class="note-section" data-index="6">
-    <h1>6. The Event Loop: How JavaScript Stays Awake</h1>
+
+      <article class="note-section" data-index="6">
+    <h1>6. Scope: The Visible Boundaries of Code</h1>
     <div class="note-box">
-        <p>Since we know JavaScript can only do one thing at a time, you might wonder: what happens when you tell a webpage to wait five seconds before showing a popup? Does the whole page freeze? Can the user still click buttons? Thanks to a clever system called the <strong>Event Loop</strong>, the page stays completely responsive.</p>
+        <p>Imagine you carry a VIP backstage pass to a concert. With that pass, you can walk freely into the main stadium, the dressing rooms, and the private lounge. But a regular ticket holder can only stay in the main stadium seats; they aren't allowed to cross into the backstage rooms.</p>
         
-        <div class="story-highlight">
-            "We had a student at SensaTech who was building a button that fetched a massive list of users from a database. He assumed that while the database was searching, the browser would lock up like an old computer screen. He was amazed to see that he could still type in the search bar and scroll the page while the data loaded in the background. He realized JavaScript wasn't frozen; it was just multitasking behind the scenes."
-        </div>
+        <p>In JavaScript, this concept of boundary lines and access rights is called <strong>Scope</strong>. Scope simply determines exactly where in your code a specific variable is allowed to be seen and used.</p>
 
-        <p>Think of the Event Loop like a busy restaurant manager. The main kitchen chef (the Call Stack) is only focused on cooking the meal in front of them. If a customer orders a dish that takes an hour to bake, the chef doesn't stand there staring at the oven. Instead, the manager hands that long task over to the kitchen helpers (the Browser Environment) to keep an eye on it.</p>
+        <p>Not all data boxes are created equal. Depending on where and how you declare a variable, it will belong to one of two main categories:</p>
 
-        <p>While the helpers are watching the oven, the chef keeps cooking shorter, faster meals for other guests. The moment the long-baked dish is finally ready, a helper puts it on a counter called the <strong>Callback Queue</strong>.</p>
+        <p>• <strong>Global Scope (The Main Stadium):</strong> If you create a variable out in the wide-open spaces of your script—completely outside of any functions or specialized code blocks—it becomes a global variable. Any line of code anywhere in your entire project can look inside that box and change it. While this sounds convenient, it is actually a bit dangerous because anyone can mess with it.</p>
 
-        <p>The Event Loop has one simple job: it constantly looks at the chef. If the chef is totally done cooking and has empty hands, the Event Loop grabs the ready dish from the counter and hands it to the chef to finish up. This continuous circle is what keeps your web apps running smoothly without ever locking up.</p>
+        <p>• <strong>Local Scope (The Backstage Rooms):</strong> If you build a variable inside a closed-off room (like a function or a loop), that variable is completely hidden from the rest of the world. Code outside that specific room cannot see it. The moment that room finishes its job, the variable inside it is tossed away safely to keep your computer's memory clean.</p>
+
+        <p>Understanding scope is a massive milestone for a new developer. It prevents your variables from colliding into each other and keeps your data exactly where it belongs. In our next section, we will see the physical walls that create these rooms: <em>functions</em> and <em>blocks</em>.</p>
     </div>
 </article>
 
 
-        <article class="note-section" data-index="7">
-    <h1>7. Engine vs. Runtime: Who Does What?</h1>
+<article class="note-section" data-index="7">
+    <h1>7. The Power of Braces: Inside vs. Outside</h1>
     <div class="note-box">
-        <p>Now that we have seen all the pieces, it is time to clear up the biggest mix-up that new developers face. People often use the words "JavaScript Engine" and "JavaScript Runtime Environment" like they mean the exact same thing. But mixing them up is like saying the engine under the hood is the exact same thing as the whole car.</p>
+        <p>Now that you know variables are like labeled storage boxes, we need to talk about where you are allowed to put those boxes. In JavaScript, you can build private rooms using <strong>curly braces <code>{ }</code></strong>.</p>
         
-        <div class="story-highlight">
-            "We once had a project at SensaTech where an app worked perfectly on a laptop, but completely crashed when we tried to run it on a smart TV. The junior dev was confused because both devices used the same V8 engine. We had to show him that while the engine inside both devices read the code the exact same way, the TV's environment didn't have the same screen-popups feature that the laptop's browser had. Same engine, different environment."
+        <p>Think of your code like a house. Anything written out in the open is like the front yard—anyone walking by can see it and mess with it. But when you use a pair of curly braces <code>{ }</code>, you are building a private room inside the house.</p>
+
+        <h3>Modern Boxes Stay in Their Rooms</h3>
+        <p>The modern keywords we learned about, <code>let</code> and <code>const</code>, are incredibly well-behaved. If you create a <code>let</code> or <code>const</code> box inside a set of curly braces, that box is locked in that room. The code outside in the "front yard" has absolutely no idea it exists.</p>
+        
+        <p>This is a amazing security feature. It means you can create a temporary variable inside a small room, use it, and the moment that room closes, JavaScript throws the box away to keep your computer's memory clean and uncluttered.</p>
+
+        <h3>The Ghost Keyword (Var)</h3>
+        <p>This is where the old keyword <code>var</code> fails completely. <code>var</code> doesn't care about standard rooms. If you build a <code>var</code> box inside a set of curly braces, it acts like a ghost—it walks straight through the walls, leaks out into the front yard, and can accidentally overwrite your other data!</p>
+
+        <div style="background-color: rgba(247, 223, 30, 0.08); border: 1px dashed #F7DF1E; padding: 20px; border-radius: 8px; margin-top: 25px; text-align: center;">
+            <h3 style="margin-top: 0; color: #F7DF1E;">🛠️ Live Coding Challenge!</h3>
+            <p style="margin: 0 0 15px 0; font-weight: 500; color: #ffffff; line-height: 1.5;">
+                Let's see this wall in action. Click the button below to open up your playground. Paste this code inside and run it to see how <code>let</code> protects your variables from leaking out of its room:
+            </p>
+            
+         
+            
+            <button onclick="document.getElementById('codeDrawer').style.transform = 'translateY(0)';" style="background-color: #F7DF1E; color: #121212; border: none; padding: 12px 30px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.2s ease;">
+                Open Editor & Code This
+            </button>
         </div>
-
-        <p>To make sure you never get confused, let's break down their jobs side-by-side:</p>
-
-        <p>• <strong>The Engine's Job:</strong> It is the brain. It takes care of memory, creates workspaces for your tasks, and translates text into computer instructions. It handles things like the Call Stack and Heap memory. It does not know what a web page is.</p>
-
-        <p>• <strong>The Runtime's Job:</strong> It is the body. It wraps around the engine and connects it to the real world. It provides the actual physical tools you interact with, like the button click handlers, screen displays, and timers. It handles things like the Web APIs and the Event Loop.</p>
-
-        <p>Remember: The engine is what reads and processes your code. The runtime environment is what gives your code things to do and a place to show its results.</p>
     </div>
 </article>
+
+<div id="codeDrawer" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 75vh; background-color: #1e1e1e; border-top: 3px solid #F7DF1E; box-shadow: 0 -10px 40px rgba(0,0,0,0.5); transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 9999; display: flex; flex-direction: column; font-family: sans-serif;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; background-color: #121212; padding: 15px 25px; border-bottom: 1px solid #333;">
+        <span style="color: #F7DF1E; font-weight: bold; letter-spacing: 1px; font-size: 0.9rem;">⚡ SANSA-TECH LIVE PLAYGROUND</span>
+        <button onclick="document.getElementById('codeDrawer').style.transform = 'translateY(100%)';" style="background: none; border: none; color: #9E9E9E; font-size: 1.5rem; cursor: pointer; padding: 0 5px; font-weight: bold; transition: color 0.2s ease;" onmouseover="this.style.color='#ff4a4a'" onmouseout="this.style.color='#9E9E9E'">
+            &times;
+        </button>
+    </div>
+
+    <div style="display: flex; flex-direction: column; flex-grow: 1; padding: 20px; gap: 15px; background-color: #1a1a1a;">
+        <label for="sandboxEditor" style="color: #E0E0E0; font-size: 0.9rem;">Type your curly brace challenge here:</label>
+        <textarea id="sandboxEditor" placeholder="{&#10;    let roomSecret = 'Safe Inside!';&#10;}&#10;console.log(roomSecret);" style="flex-grow: 1; background-color: #121212; color: #a6e22e; border: 1px solid #444; border-radius: 6px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 1.1rem; resize: none; outline: none; line-height: 1.5;"></textarea>
+        
+        <div style="display: flex; justify-content: flex-end;">
+            <button onclick="alert('Great start! Code execution diagnostics will activate fully in Subject 1.4. Keep moving forward!')" style="background-color: #262626; color: #F7DF1E; border: 1px solid #F7DF1E; padding: 10px 25px; font-size: 0.9rem; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase;">
+                Run Code
+            </button>
+        </div>
+    </div>
+</div>
+
 
 
         <article class="note-section" data-index="8">
@@ -190,80 +446,86 @@
         <button id="nextBtn" class="btn btn-primary" aria-label="Go to next section">Next Section</button>
     </nav>
 
-        <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Configuration & State
-            const TOTAL_SECTIONS = 8;
-            let currentIndex = 0; // 0-based index (0 to 7)
-
-            // DOM Elements
-            const sections = document.querySelectorAll('.note-section');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const progressFill = document.getElementById('progressFill');
-            const progressText = document.getElementById('progressText');
-
-            // Initialize UI
-            updateUI();
-
-            // Event Listeners
-            nextBtn.addEventListener('click', () => {
-                if (currentIndex < TOTAL_SECTIONS - 1) {
-                    // Move to the next section
-                    currentIndex++;
-                    updateUI();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    // We are on the last section (Section 8), redirect to quiz
-                    window.location.href = 'variables-note-quiz.html';
-                }
-            });
-
-            prevBtn.addEventListener('click', () => {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    updateUI();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-
-            // Core Logic Function
-            function updateUI() {
-                // 1. Update active section visibility
-                sections.forEach((section, index) => {
-                    if (index === currentIndex) {
-                        section.classList.add('active');
-                    } else {
-                        section.classList.remove('active');
-                    }
-                });
-
-                // 2. Update Progress Bar & Text
-                const currentStep = currentIndex + 1;
-                const percentage = (currentStep / TOTAL_SECTIONS) * 100;
-                progressFill.style.width = `${percentage}%`;
-                progressText.textContent = `${currentStep} / ${TOTAL_SECTIONS}`;
-
-                // 3. Update Buttons State
-                // Previous Button
-                if (currentIndex === 0) {
-                    prevBtn.style.visibility = 'hidden';
-                } else {
-                    prevBtn.style.visibility = 'visible';
-                }
-
-                // Next Button
-                if (currentIndex === TOTAL_SECTIONS - 1) {
-                    nextBtn.textContent = 'Take Quiz';
-                    nextBtn.disabled = false; // Kept active so it can trigger the redirect
-                } else {
-                    nextBtn.textContent = 'Next Section';
-                    nextBtn.disabled = false;
-                }
-            }
-        });
-    </script>
-<script src="https://pl29218706.effectivecpmnetwork.com/3a/ab/9e/3aab9e9e0bf53186d28a33d206bb4aab.js"></script>
+         <script>
+     document.addEventListener('DOMContentLoaded', () => {
+         // Configuration & State
+         const TOTAL_SECTIONS = 8;
+         let currentIndex = 0; // 0-based index (0 to 7)
+         
+         // DOM Elements
+         const sections = document.querySelectorAll('.note-section');
+         const prevBtn = document.getElementById('prevBtn');
+         const nextBtn = document.getElementById('nextBtn');
+         const progressFill = document.getElementById('progressFill');
+         const progressText = document.getElementById('progressText');
+         
+         // Initialize UI
+         updateUI();
+         
+         // Event Listeners
+         nextBtn.addEventListener('click', () => {
+             if (currentIndex < TOTAL_SECTIONS - 1) {
+                 // Move to the next section
+                 currentIndex++;
+                 updateUI();
+                 window.scrollTo({ top: 0, behavior: 'smooth' });
+             } else {
+                 // We are on the last section (Section 8), redirect to quiz
+                 window.location.href = 'variables-note-quiz.html';
+             }
+         });
+         
+         prevBtn.addEventListener('click', () => {
+             if (currentIndex > 0) {
+                 currentIndex--;
+                 updateUI();
+                 window.scrollTo({ top: 0, behavior: 'smooth' });
+             }
+         });
+         
+         // Core Logic Function
+         function updateUI() {
+             // 1. Update active section visibility
+             sections.forEach((section, index) => {
+                 if (index === currentIndex) {
+                     section.classList.add('active');
+                 } else {
+                     section.classList.remove('active');
+                 }
+             });
+             
+             // 2. Update Progress Bar & Text
+             const currentStep = currentIndex + 1;
+             const percentage = (currentStep / TOTAL_SECTIONS) * 100;
+             progressFill.style.width = `${percentage}%`;
+             progressText.textContent = `${currentStep} / ${TOTAL_SECTIONS}`;
+             
+             // 3. Update Buttons State
+             // Previous Button
+             if (currentIndex === 0) {
+                 prevBtn.style.visibility = 'hidden';
+             } else {
+                 prevBtn.style.visibility = 'visible';
+             }
+             
+             // Next Button
+             if (currentIndex === TOTAL_SECTIONS - 1) {
+                 nextBtn.textContent = 'Take Quiz';
+                 nextBtn.disabled = false; // Kept active so it can trigger the redirect
+             } else {
+                 nextBtn.textContent = 'Next';
+                 nextBtn.disabled = false;
+             }
+         }
+     });
+ </script>
 
 </body>
 </html>
+
+
+<script type="text/javascript" charset="utf-8">
+    let names = ["SensaTech ","International ","Academy "];
+
+    console.log(newName.indexOf(3));
+</script>

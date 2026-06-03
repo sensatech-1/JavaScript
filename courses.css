@@ -89,7 +89,7 @@ a{
 
 /* Status Card */
 .status-card {
-    background: var(--surface);
+    background: var(--surface)#42445A;
     padding: 16px 24px;
     border-radius: 12px;
     display: flex;

@@ -2,9 +2,9 @@
            CSS VARIABLES & RESET
            ========================================= */
         :root {
-            --js-yellow: #F7DF1E;
+            --js-yellow: dodgerblue;
             --js-yellow-dim: rgba(247, 223, 30, 0.2);
-            --js-yellow-hover: #e5cd15;
+            --js-yellow-hover: #1E1E1E;
             --bg-dark: #121212;
             --bg-card: #1E1E1E;
             --text-main: #E0E0E0;
@@ -114,7 +114,6 @@
             background-color: var(--bg-card);
             padding: 30px;
             border-radius: var(--border-radius);
-            border-left: 6px solid var(--js-yellow);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             margin-bottom: 20px;
         }
@@ -156,11 +155,11 @@
 
         .btn {
             background-color: transparent;
-            color: var(--js-yellow);
-            border: 2px solid var(--js-yellow);
+            color: dodgerblue;
+            border: 2px solid dodgerblue;
             padding: 12px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            font-size: 1rem;
+            font-weight: lighter;
             border-radius: var(--border-radius);
             cursor: pointer;
             transition: var(--transition);
@@ -169,9 +168,9 @@
         }
 
         .btn:hover {
-            background-color: var(--js-yellow);
-            color: var(--bg-dark);
-            box-shadow: 0 0 15px var(--js-yellow-dim);
+            background-color: dodgerblue;
+            color: white;
+            box-shadow: 0 0 15px dodgerblue;
         }
 
         .btn:disabled {
@@ -184,8 +183,8 @@
         }
         
         .btn-primary {
-            background-color: var(--js-yellow);
-            color: var(--bg-dark);
+            background-color: var(--bg-dark);
+            color: white;
         }
         .btn-primary:hover {
             background-color: var(--js-yellow-hover);
